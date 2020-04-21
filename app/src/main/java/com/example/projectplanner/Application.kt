@@ -1,7 +1,7 @@
 package com.example.projectplanner
 
 import com.activeandroid.app.Application
-import com.example.projectplanner.data.db.DaoModule
+import com.example.projectplanner.di.AppComponent
 
 class ProjectPlannerApplication : Application() {
     companion object {
