@@ -18,4 +18,13 @@ class GridPresenter: MvpPresenter<GridMvpView>() {
         ProjectPlannerApplication.graph.inject(this)
     }
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        loadAllProjects()
+    }
+    
+    fun loadAllProjects() {
+        val projectList = projectPlannerDao.loadAllProjects()
+        viewState.onProjectsLoaded(projectList)
+    }
 }
