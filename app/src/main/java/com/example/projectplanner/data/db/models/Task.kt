@@ -21,11 +21,19 @@ class Task: Model {
     @Column(name = "project")
     public var project: Project? = null
 
-    constructor(title: String, startDate: Date, endDate: Date, project: Project) {
+    @Column(name = "priority")
+    public var priority: Int? = null
+
+    @Column(name = "archived")
+    public var archived: Boolean? = null
+
+    constructor(title: String, startDate: Date, endDate: Date, project: Project, priority: Int, archived: Boolean) {
         this.title = title
         this.startDate = startDate
         this.endDate = endDate
         this.project = project
+        this.priority = priority
+        this.archived = archived
     }
 
     constructor()
