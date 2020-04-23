@@ -24,7 +24,7 @@ class GridPresenter: MvpPresenter<GridMvpView>() {
     }
     
     fun loadAllProjects() {
-        val projectList = projectPlannerDao.loadAllProjects()
+        val projectList = projectPlannerDao.getProjects()
         viewState.onProjectsLoaded(projectList)
     }
 }

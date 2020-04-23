@@ -5,7 +5,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(DaoModule::class))
+@Component(modules = [DbModule::class])
 interface AppComponent {
 
     fun inject(gridPresenter : GridPresenter)
