@@ -1,62 +1,58 @@
 package com.example.projectplanner.data.db
 
-import android.graphics.Color
-import com.activeandroid.query.Delete
-import com.activeandroid.query.Select
+import androidx.room.*
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task
-import java.sql.Date
 
-class ProjectPlannerDao {
+@Dao
+interface ProjectPlannerDao {
 
-    fun createProject(): Project {
-        var note = Project("Новый проект", Date(0), Date(0), ArrayList<Task>(), Color())
-        note.save()
-        return note
-    }
+    @Insert(onConflict = OnConflictStrategy.ABORT)
+    fun createProject(project: Project): Long
 
-    fun saveProject(project: Project) = project.save()
+    @Update
+    fun updateProject(project: Project)
 
-    fun loadAllProjects() = Select().from(Project::class.java).execute<Project>() //better fetch
+    @Query("SELECT * FROM project")
+    fun getProjects(): List<Project>
 
-    fun getProjectById(projectId: Long) = Select().from(Project::class.java).where("id = ?", projectId).executeSingle<Project>()
+    @Query("SELECT * FROM project WHERE projectId = :projectId")
+    fun getProjectById(projectId: Long): Project
 
-    fun deleteAllProjects() {
-        Delete().from(Project::class.java).execute<Project>();
-    }
+    @Query("DELETE FROM project")
+    fun deleteAllProjects()
 
-    fun deleteProject(project: Project) {
-        project.delete()
-    }
-
-    fun updateProject() {}
+    @Delete
+    fun deleteProject(project: Project)
 
     // TASKS
 
-    fun createTask(projectId: Long): Task {
+    @Insert
+    fun createTask(task: Task): Long
 
-        return Task()
-    }
+    @Update
+    fun updateTask(task: Task)
 
-    fun updateTask(task: Task) {
+    @Query("SELECT * FROM task WHERE parentProjectId = :projectId AND task_archived = 0")
+    fun fetchAllTasksForProject(projectId: Long): List<Task>
 
-    }
+    @Query("SELECT * FROM task WHERE parentProjectId = :projectId")
+    fun fetchAllTasksForProjectIncludingUnarchived(projectId: Long): List<Task>
 
-    fun fetchAllTasksForProject(projectID: String, addArchived: Boolean): ArrayList<Task> {
-        return ArrayList(0)
-    }
+    @Query("SELECT * FROM task WHERE taskId = :taskId")
+    fun getTaskById(taskId: Long): Task
 
-    fun getTaskById(taskID: Long) = Select().from(Project::class.java).where("id = ?", taskID).executeSingle<Task>()
 
-    fun deleteAllTaskForProject() {
-        Delete().from(Project::class.java).execute<Project>();
-    }
+    @Query("UPDATE task SET task_archived = 1 WHERE taskId = :taskId")
+    fun archiveTask(taskId: Long)
 
-    fun deleteTask(taskId: Long) {
+    @Query("UPDATE task SET task_archived = 0 WHERE taskId = :taskId")
+    fun unarchiveTask(taskId: Long)
 
-    }
+    @Delete
+    fun deleteTask(task: Task)
 
-    fun archiveTask(taskId: Long) {}
-
-    fun unarchiveTask(taskId: Long) {}
+    @Transaction
+    @Query("DELETE FROM task WHERE parentProjectId = :projectId")
+    fun deleteAllTaskForProject(projectId: Long)
 }

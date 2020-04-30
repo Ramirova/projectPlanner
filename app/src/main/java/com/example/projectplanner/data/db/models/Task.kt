@@ -1,40 +1,36 @@
 package com.example.projectplanner.data.db.models
 
-import com.activeandroid.Model
-import com.activeandroid.annotation.Column
-import java.sql.Date
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.Date
 
-class Task: Model {
+@Entity(tableName = "task")
+data class Task (
 
-    @Column(name = "title")
-    public var title: String? = null
+    @PrimaryKey
+    val taskId: Long?,
 
-    @Column(name = "text")
-    public var text: String? = null
+    // Room doesn't support direct object references here
+    @ColumnInfo(name = "parentProjectId")
+    val parentProjectId: Long,
 
-    @Column(name = "start_date")
-    public var startDate: Date? = null
+    @ColumnInfo(name = "task_title")
+    val taskTitle: String,
 
-    @Column(name = "end_date")
-    public var endDate: Date? = null
+    @ColumnInfo(name = "task_desc")
+    val taskDescription: String?,
 
-    @Column(name = "project")
-    public var project: Project? = null
+    @ColumnInfo(name = "task_start_date")
+    val taskStartDate: Date,
 
-    @Column(name = "priority")
-    public var priority: Int? = null
+    @ColumnInfo(name = "task_end_date")
+    val taskEndDate: Date,
 
-    @Column(name = "archived")
-    public var archived: Boolean? = null
+    @ColumnInfo(name = "task_priority")
+    val taskPriority: Int?,
 
-    constructor(title: String, startDate: Date, endDate: Date, project: Project, priority: Int, archived: Boolean) {
-        this.title = title
-        this.startDate = startDate
-        this.endDate = endDate
-        this.project = project
-        this.priority = priority
-        this.archived = archived
-    }
+    @ColumnInfo(name = "task_archived")
+    val taskArchived: Boolean
 
-    constructor()
-}
+)

@@ -10,10 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="AA_DB_NAME" android:value="Notelin.db" />
-        <meta-data android:name="AA_DB_VERSION" android:value="1" />
-
-        <activity android:name=".ui.project.ProjectActivity"></activity>
+        <activity android:name=".ui.project.ProjectActivity" />
         <activity android:name=".ui.grid.GridActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>

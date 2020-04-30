@@ -1,37 +1,29 @@
 package com.example.projectplanner.data.db.models
 
 import android.graphics.Color
-import com.activeandroid.Model
-import com.activeandroid.annotation.Column
-import java.sql.Date
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.Date
 
-class Project: Model {
+@Entity(tableName = "project")
+data class Project (
 
-    @Column(name = "title")
-    public var title: String? = null
+    @PrimaryKey val projectId: Long?,
 
-    @Column(name = "text")
-    public var text: String? = null
+    @ColumnInfo(name = "project_title")
+    val projectTitle: String,
 
-    @Column(name = "start_date")
-    public var startDate: Date? = null
+    @ColumnInfo(name = "project_desc")
+    val projectDescription: String?,
 
-    @Column(name = "end_date")
-    public var endDate: Date? = null
+    @ColumnInfo(name = "project_start_date")
+    val projectStartDate: Date?,
 
-    @Column(name = "tasks")
-    public var tasks: ArrayList<Task>? = null
+    @ColumnInfo(name = "project_end_date")
+    val projectEndDate: Date?,
 
-    @Column(name = "Color")
-    public var color: Color? = null
+    @ColumnInfo(name = "project_color")
+    val projectColor: Color
 
-    constructor(title: String, startDate: Date, endDate: Date, tasks: ArrayList<Task>?, color: Color) {
-        this.title = title
-        this.startDate = startDate
-        this.endDate = endDate
-        this.tasks = tasks
-        this.color = color
-    }
-
-    constructor()
-}
+)
