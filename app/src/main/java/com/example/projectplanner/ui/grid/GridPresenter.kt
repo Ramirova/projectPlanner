@@ -6,16 +6,16 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.data.db.ProjectPlannerDao
+import com.example.projectplanner.domain.ProjectViewModel
 import javax.inject.Inject
 
 @InjectViewState
 class GridPresenter: MvpPresenter<GridMvpView>() {
 
-    @Inject
-    lateinit var projectPlannerDao: ProjectPlannerDao
+    @Inject lateinit var projectViewModel: ProjectViewModel
 
     init {
-        ProjectPlannerApplication.graph.inject(this)
+        projectViewModel.getApplication<ProjectPlannerApplication>().appComponent.inject(this)
     }
 
     override fun onFirstViewAttach() {
@@ -24,7 +24,7 @@ class GridPresenter: MvpPresenter<GridMvpView>() {
     }
     
     fun loadAllProjects() {
-        val projectList = projectPlannerDao.getProjects()
+        val projectList = projectViewModel.allProjects
         viewState.onProjectsLoaded(projectList)
     }
 }
