@@ -9,7 +9,7 @@ import java.util.Date
 data class Task (
 
     @PrimaryKey
-    val taskId: Long?,
+    val taskId: Long,
 
     // Room doesn't support direct object references here
     @ColumnInfo(name = "parentProjectId")
