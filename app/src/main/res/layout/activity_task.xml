@@ -25,6 +25,14 @@
         android:inputType="text"
         android:importantForAutofill="no" />
 
+    <Spinner
+        android:id="@+id/select_project"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:hint="Select project"
+        android:inputType="text"/>
+
     <EditText
         android:id="@+id/start_date"
         android:layout_width="100dp"
