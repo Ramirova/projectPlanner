@@ -24,7 +24,7 @@
             app:column_count="2"
             app:row_count="30"
             tools:ignore="MissingConstraints"
-            app:header_title="@string/my_header_title"
+            app:header_title="@array/default_header_title"
             app:cell_height="50dp"
             app:side_cell_width="30dp"
             app:start_time="1"
