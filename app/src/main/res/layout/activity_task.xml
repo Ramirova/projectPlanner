@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/task_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:hint="Enter the task name"
+        android:inputType="text"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/start_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+
+        android:layout_margin="30dp"
+        android:hint="Start date"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/end_date"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="30dp"
+        android:hint="End date"
+        android:importantForAutofill="no" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:hint="Completed before deadline" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/Save"
+        android:onClick="onSaveButtonClick"
+        />
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="@string/Delete"
+        android:onClick="onDeleteButtonClick"
+        />
+
+</LinearLayout>

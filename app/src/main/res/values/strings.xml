@@ -1,3 +1,37 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Project Planner</string>
+    <string name="my_header_title">Header Title</string>
+
+    <string-array name="monthsList">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>Jule</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
+    <string-array name="default_header_title" tools:ignore="InconsistentArrays">
+        <item></item>
+        <item></item>
+    </string-array>
+
+    <string name="create_project_title_input">Project title</string>
+    <string name="create_project_description_input">Project description</string>
+    <string name="create_project_start_date_input">Project start date</string>
+    <string name="create_project_end_date_input">Project end date</string>
+    <string name="create_project_color_input">Project color</string>
+    <string name="create_project_color_btn">Color</string>
+    <string name="create_project_cancel_btn">Cancel</string>
+    <string name="create_project_create_btn">Create</string>
+    <string name="Save">Save</string>
+    <string name="Delete"> Delete</string>
+
+
 </resources>

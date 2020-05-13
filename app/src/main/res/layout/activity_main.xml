@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.grid.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include android:id="@+id/toolbar"
+        layout="@layout/app_toolbar" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <HorizontalScrollView
+        android:id="@+id/timetable_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.projectplanner.ui.ProjectTableView
+            android:id="@+id/timetable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:column_count="2"
+            app:row_count="30"
+            tools:ignore="MissingConstraints"
+            app:header_title="@string/my_header_title"
+            app:cell_height="50dp"
+            app:side_cell_width="30dp"
+            app:start_time="1"
+            app:header_highlight_color="@color/highlight"
+            app:header_highlight_image_size="36dp"
+            app:header_highlight_type="image"
+        />
+
+    </HorizontalScrollView >
+
+
+</LinearLayout>

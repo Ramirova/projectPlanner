@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/create_project_title_input"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:hint="@string/create_project_title_input"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/create_project_description_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:hint="@string/create_project_description_input"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_project_title_input" />
+
+    <EditText
+        android:id="@+id/create_project_start_date_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:hint="@string/create_project_start_date_input"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_project_description_input" />
+
+    <EditText
+        android:id="@+id/create_project_end_date_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:hint="@string/create_project_end_date_input"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_project_start_date_input" />
+
+    <EditText
+        android:id="@+id/create_project_color_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:hint="@string/create_project_color_input"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_project_end_date_input" />
+
+<!--    <Button-->
+<!--        android:id="@+id/create_project_color_input"-->
+<!--        android:layout_width="155dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:layout_marginLeft="32dp"-->
+<!--        android:text="@string/create_project_color_btn"-->
+<!--        android:onClick="onChooseColorButtonClick"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/create_project_end_date_input" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/create_project_color_result"-->
+<!--        android:layout_width="155dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="64dp"-->
+<!--        android:layout_marginRight="32dp"-->
+<!--        android:text=""-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/create_project_end_date_input" />-->
+
+    <Button
+        android:id="@+id/create_project_cancel_btn"
+        android:layout_width="155dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginLeft="32dp"
+        android:text="@string/create_project_cancel_btn"
+        android:onClick="onCancelButtonClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_project_color_input" />
+
+    <Button
+        android:id="@+id/create_project_create_btn"
+        android:layout_width="139dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/create_project_create_btn"
+        android:onClick="onCreateButtonClick"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_project_color_input" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
