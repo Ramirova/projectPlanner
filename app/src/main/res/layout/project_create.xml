@@ -166,7 +166,6 @@
         android:layout_height="50dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="32dp"
-        android:onClick="onCreateButtonClick"
         android:text="@string/create_project_create_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

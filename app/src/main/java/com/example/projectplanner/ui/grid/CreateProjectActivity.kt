@@ -1,4 +1,4 @@
-onCreateButtonClickpackage com.example.projectplanner.ui.grid
+package com.example.projectplanner.ui.grid
 
 import android.app.DatePickerDialog
 import android.graphics.Color
@@ -9,9 +9,11 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.domain.ProjectViewModel
+import kotlinx.android.synthetic.main.project_create.*
 import yuku.ambilwarna.AmbilWarnaDialog
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener
 import java.util.*
@@ -29,6 +31,8 @@ class CreateProjectActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.project_create)
+        (application as ProjectPlannerApplication).appComponent.inject(this)
+        create_project_create_btn.setOnClickListener { onCreateButtonClick() }
     }
 
     fun onChooseStartDateButtonClick(view: View) {
@@ -90,7 +94,7 @@ class CreateProjectActivity : AppCompatActivity() {
         this.onBackPressed()
     }
 
-    fun onCreateButtonClick(view: View) {
+    fun onCreateButtonClick() {
         // input data processing
         // input values
         val projectTitle =
@@ -102,7 +106,7 @@ class CreateProjectActivity : AppCompatActivity() {
         val projectColor = chosenColor
 
         val newProject = Project(
-            UUID.randomUUID().toString().toLong(),
+            UUID.randomUUID().leastSignificantBits,
             projectTitle,
             projectDescription,
             projectStartDate, projectEndDate,
