@@ -17,6 +17,9 @@ import java.util.*
 
 class CreateProjectActivity : AppCompatActivity() {
 
+    var startDate = Date()
+    var endDate = Date()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.project_create)
@@ -31,14 +34,15 @@ class CreateProjectActivity : AppCompatActivity() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-
         val dpd = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val startDateText = findViewById<TextView>(R.id.create_project_start_date_text)
                     .setText(dayOfMonth.toString() + "." + monthOfYear + "." + year)
+                startDate = Date(year, monthOfYear, dayOfMonth)
             }, year, month, day
         )
+        
         dpd.show()
     }
 
@@ -48,14 +52,15 @@ class CreateProjectActivity : AppCompatActivity() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-
         val dpd = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 val endValue = "$dayOfMonth.$monthOfYear.$year"
                 findViewById<TextView>(R.id.create_project_end_date_text).text = endValue
+                endDate = Date(year, monthOfYear, dayOfMonth)
             }, year, month, day
         )
+
         dpd.show()
     }
 
