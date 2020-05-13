@@ -8,6 +8,9 @@ import com.example.projectplanner.data.db.ProjectPlannerRepository
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class ProjectViewModel
@@ -24,8 +27,18 @@ class ProjectViewModel
         allTasks = repository.allTasks
     }
 
+    fun insertProject(project: Project) {
+        viewModelScope.launch {
+            repository.insertProject(project)
+        }
+    }
+
     suspend fun getTasksForProject(project: Project): LiveData<List<Task>> {
+
+        //  TODO: this probably shouldn't be suspended!
+
         return repository.getTasksForProject(project)
+
     }
 
     suspend fun getTasksForProject(projectId: Long): LiveData<List<Task>> {

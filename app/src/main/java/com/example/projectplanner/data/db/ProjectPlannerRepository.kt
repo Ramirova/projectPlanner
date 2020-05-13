@@ -12,14 +12,14 @@ class ProjectPlannerRepository(private val projectPlannerDao: ProjectPlannerDao)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertProject(project: Project) {
-        projectPlannerDao.insertProject(project)
+    suspend fun insertProject(project: Project): Long {
+        return projectPlannerDao.insertProject(project)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertTask(task: Task) {
-        projectPlannerDao.insertTask(task)
+    suspend fun insertTask(task: Task): Long {
+        return projectPlannerDao.insertTask(task)
     }
 
     @Suppress("RedundantSuspendModifier")

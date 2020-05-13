@@ -31,6 +31,12 @@
     <string name="create_project_create_btn">Create</string>
     <string name="Save">Save</string>
     <string name="Delete"> Delete</string>
+    <string name="choose_project_start_date_title">Choose project start date:</string>
+    <string name="choose_project_end_date_title">Choose project end date:</string>
+    <string name="create_project_start_date_text" />
+
+    <string name="choose_project_color_title">Choose project color:</string>
+
 
 
 </resources>

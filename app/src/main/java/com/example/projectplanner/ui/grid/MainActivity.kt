@@ -11,7 +11,9 @@ import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
+import com.example.projectplanner.domain.ProjectViewModel
 import com.github.tlaabs.timetableview.Schedule
 import com.github.tlaabs.timetableview.Time
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,13 +22,18 @@ import kotlinx.android.synthetic.main.app_toolbar.*
 import com.example.projectplanner.ui.ProjectTableView
 import com.example.projectplanner.ui.project.TaskActivity
 import java.util.*
-
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var projectViewModel: ProjectViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        (application as ProjectPlannerApplication).appComponent.inject(this)
 
         // init toolbar
         initializeToolbar()
