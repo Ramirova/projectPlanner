@@ -114,5 +114,6 @@ class CreateProjectActivity : AppCompatActivity() {
         )
 
         projectViewModel.insertProject(newProject)
+        this.onBackPressed()
     }
 }
