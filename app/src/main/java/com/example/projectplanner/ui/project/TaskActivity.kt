@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.projectplanner.ProjectPlannerApplication
@@ -12,6 +13,7 @@ import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Task
 import com.example.projectplanner.domain.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_task.*
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -23,6 +25,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     var currentProjectName: String = "" //TODO переделать в кортеж с именами
     var currentProjectId: Long = 0
 
+    var currentTask: Task? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
@@ -30,6 +34,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
         var startDate: Date? = null
         var endDate: Date? = null
+
+        currentTask = intent.getParcelableExtra<Task>("EXTRA_TASK")
 
         populateProjects()
 
@@ -66,11 +72,41 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         save_button.setOnClickListener {
             startDate?.let { start ->
                 endDate?.let { end ->
-                    val task = Task(UUID.randomUUID().mostSignificantBits, currentProjectId, task_name.text.toString(), null,
+                    val task = Task(0, currentProjectId, task_name.text.toString(), null,
                         start, end, 0, false)
 
                     projectViewModel.insertTask(task)
                 } }
+        }
+
+        if (currentTask != null) {
+            delete_button.setOnClickListener {
+                projectViewModel.deleteTask(currentTask!!)
+                Toast.makeText(it.context, "Task Deleted", Toast.LENGTH_LONG).show()
+                onBackPressed()
+            }
+            task_screen_title.text = "Edit Task"
+            task_name.setText(currentTask!!.taskTitle)
+            select_project.setSelection((select_project.adapter as ArrayAdapter<String>).getPosition(
+                runBlocking {
+                    projectViewModel.getProject(currentTask!!.parentProjectId).value!!.projectTitle
+                }
+            ))
+
+            currentTask!!.taskStartDate.let {
+                start_date.setText("${it.day}/${it.month}/${it.year}")
+            }
+
+            currentTask!!.taskEndDate.let {
+                end_date.setText("${it.day}/${it.month}/${it.year}")
+            }
+
+        } else {
+            delete_button.text = getString(R.string.Cancel)
+            delete_button.setOnClickListener {
+                onBackPressed()
+            }
+
         }
     }
 
