@@ -5,11 +5,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Create new task:"
+        android:textFontWeight="@android:integer/config_longAnimTime"
+        android:textSize="20sp" />
+
     <EditText
         android:id="@+id/task_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="20dp"
         android:hint="Enter the task name"
         android:inputType="text"
         android:importantForAutofill="no" />
@@ -19,8 +30,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
         android:hint="Start date"
         android:importantForAutofill="no" />
 
@@ -29,21 +40,24 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
         android:hint="End date"
         android:importantForAutofill="no" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
         android:hint="Completed before deadline" />
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
         android:text="@string/Save"
         android:onClick="onSaveButtonClick"
         />
@@ -52,7 +66,8 @@
         android:id="@+id/delete_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
         android:text="@string/Delete"
         android:onClick="onDeleteButtonClick"
         />
