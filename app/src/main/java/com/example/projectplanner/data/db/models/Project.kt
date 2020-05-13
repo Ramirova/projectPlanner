@@ -9,7 +9,8 @@ import java.util.Date
 @Entity(tableName = "project")
 data class Project (
 
-    @PrimaryKey val projectId: Long,
+    @PrimaryKey(autoGenerate = true)
+    val projectId: Long,
 
     @ColumnInfo(name = "project_title")
     val projectTitle: String,

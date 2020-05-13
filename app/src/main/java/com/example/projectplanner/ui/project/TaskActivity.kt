@@ -8,6 +8,8 @@ import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Task
 import com.example.projectplanner.domain.ProjectViewModel
 import com.example.projectplanner.ui.grid.PROJECT_ID
+import com.example.projectplanner.ui.grid.PROJECT_IDs
+import com.example.projectplanner.ui.grid.PROJECT_NAMEs
 import kotlinx.android.synthetic.main.activity_task.*
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -24,7 +26,8 @@ class TaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task)
 
-        val projectID = intent.getLongExtra(PROJECT_ID, 0)
+        val projectIDs = intent.getLongArrayExtra(PROJECT_IDs, 0)
+        val projectNames = intent.getStringArrayExtra(PROJECT_NAMEs, 0)
 
         var startDate: Date? = null
         var endDate: Date? = null

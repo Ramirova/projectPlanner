@@ -23,13 +23,15 @@ import com.example.projectplanner.ui.project.TaskActivity
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-const val PROJECT_ID = "project_id"
+const val PROJECT_IDs = "project_ids"
+const val PROJECT_NAMEs = "project_names"
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var projectViewModel: ProjectViewModel
     private val projectToColumns = ArrayList<Long>()
+    private val projectNames = ArrayList<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
         timetable.setOnStickerSelectEventListener(object : ProjectTableView.OnStickerSelectedListener {
             override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
-                taskIntent.putExtra(PROJECT_ID, projectToColumns[idx])
+                taskIntent.putExtra(PROJECT_IDs, projectToColumns)
+                taskIntent.putExtra(PROJECT_NAMEs, projectNames)
                 startActivity(taskIntent)
             }
         })
@@ -62,13 +65,13 @@ class MainActivity : AppCompatActivity() {
     private fun subscribeProjects() {
         projectViewModel.allProjects.observe(this, Observer { projects ->
             projectToColumns.clear()
-            val titles = ArrayList<String>()
+            projectNames.clear()
 
             projects.forEach { project ->
                 projectToColumns.add(project.projectId)
-                titles.add(project.projectTitle)
+                projectNames.add(project.projectTitle)
             }
-            timetable.updateHeaderTitle(titles.toTypedArray())
+            timetable.updateHeaderTitle(projectNames.toTypedArray())
 
             subscribeTasksFor(projectToColumns)
         })
