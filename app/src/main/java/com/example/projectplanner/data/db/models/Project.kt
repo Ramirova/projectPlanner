@@ -11,6 +11,8 @@ import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.TypeParceler
 import java.util.Date
 
+@Parcelize
+@TypeParceler<Color, ColorParceler>
 @Entity(tableName = "project")
 @Parcelize
 @TypeParceler<Color, ColorParceler>

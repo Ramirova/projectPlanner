@@ -1,14 +1,17 @@
 package com.example.projectplanner.data.db.models
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 import java.util.Date
 
+@Parcelize
 @Entity(tableName = "task")
 data class Task (
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     val taskId: Long,
 
     // Room doesn't support direct object references here
@@ -33,4 +36,4 @@ data class Task (
     @ColumnInfo(name = "task_archived")
     val taskArchived: Boolean
 
-)
+) : Parcelable

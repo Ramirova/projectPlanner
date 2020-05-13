@@ -28,8 +28,11 @@
     <string name="create_project_color_btn">Color</string>
     <string name="create_project_cancel_btn">Cancel</string>
     <string name="create_project_create_btn">Create</string>
+
     <string name="Save">Save</string>
     <string name="Delete"> Delete</string>
+    <string name="Cancel"> Cancel</string>
+
     <string name="choose_project_start_date_title">Choose project start date:</string>
     <string name="choose_project_end_date_title">Choose project end date:</string>
     <string name="create_project_start_date_text" />

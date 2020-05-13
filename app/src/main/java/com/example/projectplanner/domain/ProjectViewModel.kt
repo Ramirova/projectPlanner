@@ -39,6 +39,22 @@ class ProjectViewModel
         }
     }
 
+    fun deleteTask(task: Task) {
+        viewModelScope.launch {
+            repository.deleteTask(task)
+        }
+    }
+
+    fun deleteProject(project: Project) {
+        viewModelScope.launch {
+            repository.deleteProject(project)
+        }
+    }
+
+    suspend fun getProject(projectId: Long): LiveData<Project> {
+        return repository.getProject(projectId)
+    }
+
     suspend fun getTasksForProject(project: Project): LiveData<List<Task>> {
 
         //  TODO: this probably shouldn't be suspended!
