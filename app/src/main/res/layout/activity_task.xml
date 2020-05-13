@@ -19,7 +19,6 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-
         android:layout_margin="30dp"
         android:hint="Start date"
         android:importantForAutofill="no" />

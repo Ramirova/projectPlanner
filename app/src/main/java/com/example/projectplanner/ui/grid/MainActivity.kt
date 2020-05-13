@@ -108,6 +108,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(createProjectIntent)
     }
 
+    fun onPlusButtonCLick(view: View) {
+        val taskIntent = Intent(this, TaskActivity::class.java)
+        startActivity(taskIntent)
+    }
 }
 
 
