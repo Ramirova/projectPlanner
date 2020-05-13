@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,16 @@ class CreateProjectActivity : AppCompatActivity() {
         setContentView(R.layout.project_create)
         (application as ProjectPlannerApplication).appComponent.inject(this)
         create_project_create_btn.setOnClickListener { onCreateButtonClick() }
+
+        // put correct buttons on project view
+        val project = intent.getParcelableExtra<Project>("project")
+        if (project != null) {
+            findViewById<Button>(R.id.create_project_create_btn).visibility = View.INVISIBLE
+            findViewById<Button>(R.id.create_project_delete_btn).visibility = View.VISIBLE
+        } else {
+            findViewById<Button>(R.id.create_project_create_btn).visibility = View.VISIBLE
+            findViewById<Button>(R.id.create_project_delete_btn).visibility = View.INVISIBLE
+        }
     }
 
     fun onChooseStartDateButtonClick(view: View) {
