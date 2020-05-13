@@ -14,8 +14,6 @@ import java.util.Date
 @Parcelize
 @TypeParceler<Color, ColorParceler>
 @Entity(tableName = "project")
-@Parcelize
-@TypeParceler<Color, ColorParceler>
 class Project(
 
     @PrimaryKey(autoGenerate = true)
