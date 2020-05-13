@@ -1,9 +1,6 @@
 package com.example.projectplanner.ui.grid
 
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.updateLayoutParams
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
@@ -22,9 +19,6 @@ import com.example.projectplanner.ui.ProjectTableView
 import com.example.projectplanner.ui.project.TaskActivity
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-
-const val PROJECT_IDs = "project_ids"
-const val PROJECT_NAMEs = "project_names"
 
 class MainActivity : AppCompatActivity() {
 
@@ -50,8 +44,6 @@ class MainActivity : AppCompatActivity() {
 
         timetable.setOnStickerSelectEventListener(object : ProjectTableView.OnStickerSelectedListener {
             override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
-                taskIntent.putExtra(PROJECT_IDs, projectToColumns)
-                taskIntent.putExtra(PROJECT_NAMEs, projectNames)
                 startActivity(taskIntent)
             }
         })
