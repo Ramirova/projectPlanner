@@ -18,7 +18,6 @@
 
     <string-array name="default_header_title" tools:ignore="InconsistentArrays">
         <item></item>
-        <item></item>
     </string-array>
 
     <string name="create_project_title_input">Project title</string>

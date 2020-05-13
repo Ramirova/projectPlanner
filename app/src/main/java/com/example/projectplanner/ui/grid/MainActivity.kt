@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         subscribeProjects()
 
+
         timetable.updateNumDays(30) // TODO
 
         val taskIntent = Intent(this, TaskActivity::class.java)
@@ -63,7 +64,8 @@ class MainActivity : AppCompatActivity() {
                 projectToColumns.add(project.projectId)
                 projectNames.add(project.projectTitle)
             }
-            timetable.updateHeaderTitle(projectNames.toTypedArray())
+
+            timetable.updateHeaderTitle(projectNames)
 
             subscribeTasksFor(projectToColumns)
         })

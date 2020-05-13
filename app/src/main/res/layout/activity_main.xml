@@ -21,7 +21,7 @@
             android:id="@+id/timetable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:column_count="2"
+            app:column_count="1"
             app:row_count="30"
             tools:ignore="MissingConstraints"
             app:header_title="@array/default_header_title"

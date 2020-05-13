@@ -15,6 +15,7 @@ import android.widget.*
 import com.github.tlaabs.timetableview.*
 import com.example.projectplanner.R
 import java.util.*
+import kotlin.collections.ArrayList
 
 class ProjectTableView : LinearLayout {
     private var rowCount = 0
@@ -142,9 +143,18 @@ class ProjectTableView : LinearLayout {
         return allSchedules
     }
 
-    fun updateHeaderTitle(newHeaderTitle: Array<String>) {
-        headerTitle = newHeaderTitle
-        columnCount = newHeaderTitle.size
+    fun updateHeaderTitle(newHeaderTitle: ArrayList<String>) {
+        val headerColumns = ArrayList<String>()
+        headerColumns.add("")
+
+        headerColumns.addAll(newHeaderTitle)
+
+        if (headerColumns.size == 1){
+            headerColumns.add("")
+        }
+
+        headerTitle = headerColumns.toTypedArray()
+        columnCount = headerColumns.size
 
         tableHeader!!.removeAllViews()
         tableBox!!.removeAllViews()
@@ -291,8 +301,13 @@ class ProjectTableView : LinearLayout {
         val display = (context as Activity).windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-        if (size.x - paddingLeft - paddingRight > dp2Px(DEFAULT_CELL_WIDTH_DP) * (columnCount - 1)) {
-            return (size.x - paddingLeft - paddingRight - sideCellWidth) / (columnCount - 1)
+
+        val freeWidth = size.x - paddingLeft - paddingRight - sideCellWidth
+        if (freeWidth > dp2Px(DEFAULT_CELL_WIDTH_DP) * (columnCount - 1)) {
+            if (columnCount > 1){
+                return freeWidth / (columnCount - 1)
+            }
+            return freeWidth
         }
         return dp2Px(DEFAULT_CELL_WIDTH_DP)
     }
