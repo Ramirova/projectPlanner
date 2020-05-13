@@ -33,6 +33,12 @@ class ProjectViewModel
         }
     }
 
+    fun insertTask(task: Task) {
+        viewModelScope.launch {
+            repository.insertTask(task)
+        }
+    }
+
     suspend fun getTasksForProject(project: Project): LiveData<List<Task>> {
 
         //  TODO: this probably shouldn't be suspended!

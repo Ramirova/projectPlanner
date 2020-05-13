@@ -11,11 +11,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Project
+import com.example.projectplanner.domain.ProjectViewModel
 import yuku.ambilwarna.AmbilWarnaDialog
 import yuku.ambilwarna.AmbilWarnaDialog.OnAmbilWarnaListener
 import java.util.*
+import javax.inject.Inject
 
 class CreateProjectActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var projectViewModel: ProjectViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,12 +103,13 @@ class CreateProjectActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.create_project_color_text).text.toString()
 
         val newProject = Project(
-            -1,
+            UUID.randomUUID().toString().toLong(),
             projectTitle,
             projectDescription,
             Date(projectStartDate), Date(projectEndDate),
             Color.valueOf(Color.parseColor(projectColor))
         )
 
+        projectViewModel.insertProject(newProject)
     }
 }

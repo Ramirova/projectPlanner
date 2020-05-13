@@ -9,8 +9,7 @@ import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import android.content.Intent
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
 import com.example.projectplanner.domain.ProjectViewModel
@@ -18,16 +17,18 @@ import com.github.tlaabs.timetableview.Schedule
 import com.github.tlaabs.timetableview.Time
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import kotlinx.android.synthetic.main.app_toolbar.*
 import com.example.projectplanner.ui.ProjectTableView
 import com.example.projectplanner.ui.project.TaskActivity
-import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
+
+const val PROJECT_ID = "project_id"
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var projectViewModel: ProjectViewModel
+    private val projectToColumns = ArrayList<Long>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,49 +36,56 @@ class MainActivity : AppCompatActivity() {
 
         (application as ProjectPlannerApplication).appComponent.inject(this)
 
-        // init toolbar
         initializeToolbar()
 
-        // Update list of projects
-        val projectNames = arrayOf("", "MAP", "MobDev")
-        timetable.updateHeaderTitle(projectNames)
+        subscribeProjects()
 
-        // Update number of days in month
-        val numDays = 30
-        timetable.updateNumDays(numDays)
-
-        // Create task
-        val schedules = ArrayList<Schedule>()
-        val schedule = Schedule()
-        schedule.classTitle = "Data Structure" // sets subject (header of the task)
-        schedule.classPlace = "IT-601" // sets place (can be used as short description)
-
-        // How to use Time as date?
-        // Pretend like hour is a day
-        // E. g. below you can see task starting at 25 day of month and ending at 28
-        schedule.startTime = Time(25, 0) // sets the beginning of task date (day)
-        schedule.endTime = Time(28, 0) // sets the end of task date (day)
-        schedule.day = 1 // index of project in a list of projects
-
-        schedules.add(schedule)
-        timetable.add(schedules)
-
-        // Here is how it possible to get all stickers and their indices
-        // timetable.allSchedulesInStickers
-
-        // Remove task
-        timetable.remove(0)
-
-        schedules.add(schedule)
-        timetable.add(schedules)
-
+        timetable.updateNumDays(30) // TODO
 
         val taskIntent = Intent(this, TaskActivity::class.java)
 
+
         timetable.setOnStickerSelectEventListener(object : ProjectTableView.OnStickerSelectedListener {
-            override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?){
+            override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
+                taskIntent.putExtra(PROJECT_ID, projectToColumns[idx])
                 startActivity(taskIntent)
             }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        subscribeProjects()
+    }
+
+    private fun subscribeProjects() {
+        projectViewModel.allProjects.observe(this, Observer { projects ->
+            projectToColumns.clear()
+            val titles = ArrayList<String>()
+
+            projects.forEach { project ->
+                projectToColumns.add(project.projectId)
+                titles.add(project.projectTitle)
+            }
+            timetable.updateHeaderTitle(titles.toTypedArray())
+
+            subscribeTasksFor(projectToColumns)
+        })
+    }
+
+    private fun subscribeTasksFor(projectColumns: ArrayList<Long>) {
+        projectViewModel.allTasks.observe(this, Observer { tasks ->
+            val schedules = ArrayList<Schedule>()
+            val schedule = Schedule()
+            tasks.forEach { task ->
+                schedule.classTitle = task.taskTitle
+                schedule.classPlace = task.taskDescription
+                schedule.startTime = Time(task.taskStartDate.day, 0)
+                schedule.endTime = Time(task.taskEndDate.day, 0)
+                schedule.day = projectColumns.indexOf(task.parentProjectId)
+            }
+            schedules.add(schedule)
+            timetable.add(schedules)
         })
     }
 
@@ -107,7 +115,6 @@ class MainActivity : AppCompatActivity() {
         val createProjectIntent = Intent(this, CreateProjectActivity::class.java)
         startActivity(createProjectIntent)
     }
-
 }
 
 

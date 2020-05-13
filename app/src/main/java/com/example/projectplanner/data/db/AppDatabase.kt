@@ -11,7 +11,7 @@ import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [Project::class, Task::class], version = 1, exportSchema = false)
+@Database(entities = [Project::class, Task::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ProjectPlannerDatabase : RoomDatabase() {
     abstract fun projectPlannerDao(): ProjectPlannerDao
