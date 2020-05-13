@@ -19,13 +19,11 @@ class CreateProjectActivity : AppCompatActivity() {
 
     var startDate = Date()
     var endDate = Date()
+    var chosenColor = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.project_create)
-
-        // color picker actions
-
     }
 
     fun onChooseStartDateButtonClick(view: View) {
@@ -42,7 +40,7 @@ class CreateProjectActivity : AppCompatActivity() {
                 startDate = Date(year, monthOfYear, dayOfMonth)
             }, year, month, day
         )
-        
+
         dpd.show()
     }
 
@@ -72,8 +70,9 @@ class CreateProjectActivity : AppCompatActivity() {
             override fun onCancel(dialog: AmbilWarnaDialog?) {}
             override fun onOk(dialog: AmbilWarnaDialog?, color: Int) {
                 // here the work with color
-                var newColor = "#" + Integer.toHexString(color)
+                chosenColor = color
 
+                var newColor = "#" + Integer.toHexString(color)
                 findViewById<TextView>(R.id.create_project_color_text).text = newColor
             }
         }
@@ -93,21 +92,16 @@ class CreateProjectActivity : AppCompatActivity() {
             findViewById<EditText>(R.id.create_project_title_input).text.toString()
         val projectDescription =
             findViewById<EditText>(R.id.create_project_description_input).text.toString()
-        // TODO DAMIR RETURN PROPER DATES
-        val projectStartDate =
-            findViewById<EditText>(R.id.create_project_start_date_text).text.toString()
-        val projectEndDate =
-            findViewById<EditText>(R.id.create_project_end_date_text).text.toString()
-        // TODO Дамир возвращай просто инт его легче превратить в цвет
-        val projectColor =
-            findViewById<TextView>(R.id.create_project_color_text).text.toString()
+        val projectStartDate = startDate
+        val projectEndDate = endDate
+        val projectColor = chosenColor
 
         val newProject = Project(
             -1,
             projectTitle,
             projectDescription,
-            Date(projectStartDate), Date(projectEndDate),
-            Color.valueOf(Color.parseColor(projectColor))
+            projectStartDate, projectEndDate,
+            Color.valueOf(projectColor)
         )
 
     }
