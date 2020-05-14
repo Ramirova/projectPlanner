@@ -40,12 +40,10 @@ class MainActivity : AppCompatActivity() {
 
         (application as ProjectPlannerApplication).appComponent.inject(this)
 
+        initializeToolbar()
+
         subscribeProjects()
         subscribeTasks()
-
-        timetable.updateNumDays(31)
-
-        initializeToolbar()
 
         val taskIntent = Intent(this, TaskActivity::class.java)
 
@@ -119,9 +117,11 @@ class MainActivity : AppCompatActivity() {
                     "February" -> 28
                     else -> 30
                 }
+                timetable.removeAll()
+                // this function removes everything except for stickers,
+                // so get get pushed to the side.
                 timetable.updateNumDays(nDays)
                 projectViewModel.selectMonth(position)
-                // subscribeProjects()
             }
         }
     }
