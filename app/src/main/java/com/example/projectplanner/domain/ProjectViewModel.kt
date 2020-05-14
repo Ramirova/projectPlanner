@@ -1,9 +1,7 @@
 package com.example.projectplanner.domain
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.*
 import com.example.projectplanner.data.db.ProjectPlannerDatabase
 import com.example.projectplanner.data.db.ProjectPlannerRepository
 import com.example.projectplanner.data.db.models.Project
@@ -22,8 +20,8 @@ class ProjectViewModel
     val allProjects: LiveData<List<Project>>
     val allTasks: LiveData<List<Task>>
 
-    var selectedMonth: Int = 0
-    var selectedTasks: LiveData<List<Task>> = MutableLiveData<List<Task>>(null)
+    var selectedMonth: MutableLiveData<Int> = MutableLiveData<Int>(0)
+    var selectedTasks: LiveData<List<Task>>
 
     init {
         val projectPlannerDao =
@@ -31,10 +29,11 @@ class ProjectViewModel
         repository = ProjectPlannerRepository(projectPlannerDao)
         allProjects = repository.allProjects
         allTasks = repository.allTasks
-        runBlocking {
-            selectedTasks = repository.getTasksBetweenDates(
-                Date(120, 0, 1),
-                Date(120, 1, 1)
+        selectedTasks = Transformations.switchMap(selectedMonth) { m ->
+            repository.getTasksBetweenDates(
+                // Yes, this only works for 2020. Too bad!
+                Date(120, m, 1),
+                Date(120, m+1, 1)
             )
         }
     }
@@ -63,24 +62,19 @@ class ProjectViewModel
         }
     }
 
-    suspend fun selectMonth(m: Int) {
-        selectedMonth = m
-        // Yes, this only works for 2020. Too bad!
-        selectedTasks = repository.getTasksBetweenDates(
-            Date(120, m, 1),
-            Date(120, m + 1, 1)
-        )
+    fun selectMonth(m: Int) {
+        selectedMonth.postValue(m)
     }
 
     suspend fun getProject(projectId: Long): LiveData<Project> {
         return repository.getProject(projectId)
     }
 
-    suspend fun getTasksForProject(project: Project): LiveData<List<Task>> {
+    fun getTasksForProject(project: Project): LiveData<List<Task>> {
         return repository.getTasksForProject(project)
     }
 
-    suspend fun getTasksForProject(projectId: Long): LiveData<List<Task>> {
+    fun getTasksForProject(projectId: Long): LiveData<List<Task>> {
         return repository.getTasksForProject(projectId)
     }
 

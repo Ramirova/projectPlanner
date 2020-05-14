@@ -40,12 +40,12 @@ class MainActivity : AppCompatActivity() {
 
         (application as ProjectPlannerApplication).appComponent.inject(this)
 
-        initializeToolbar()
-
         subscribeProjects()
-        subscribeTasksFor(projectToColumns)
+        subscribeTasks()
 
         timetable.updateNumDays(31)
+
+        initializeToolbar()
 
         val taskIntent = Intent(this, TaskActivity::class.java)
 
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        subscribeProjects()
+        // subscribeProjects()
     }
 
     private fun subscribeProjects() {
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun subscribeTasksFor(projectColumns: ArrayList<Long>) {
+    private fun subscribeTasks() {
         projectViewModel.selectedTasks.observe(this, Observer { tasks ->
             timetable.removeAll()
             if (!tasks.isNullOrEmpty()) {
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                     schedule.classPlace = task.taskDescription
                     schedule.startTime = Time(task.taskStartDate.date, 0)
                     schedule.endTime = Time(task.taskEndDate.date + 1, 0)
-                    schedule.day = projectColumns.indexOf(task.parentProjectId)
+                    schedule.day = this@MainActivity.projectToColumns.indexOf(task.parentProjectId)
                     schedules.add(schedule)
                 }
                 timetable.add(schedules)
@@ -120,9 +120,7 @@ class MainActivity : AppCompatActivity() {
                     else -> 30
                 }
                 timetable.updateNumDays(nDays)
-                runBlocking {
-                    projectViewModel.selectMonth(position)
-                }
+                projectViewModel.selectMonth(position)
                 // subscribeProjects()
             }
         }
