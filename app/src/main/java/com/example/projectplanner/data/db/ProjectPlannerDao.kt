@@ -48,6 +48,9 @@ interface ProjectPlannerDao {
     @Query("SELECT * FROM task WHERE parentProjectId = :projectId")
     fun getAllTasksForProjectIncludingArchived(projectId: Long): LiveData<List<Task>>
 
+    @Query("SELECT * FROM task WHERE task_start_date BETWEEN :from AND :to")
+    fun getTasksBetweenDates(from: Long, to: Long): LiveData<List<Task>>
+
     @Query("UPDATE task SET task_archived = 1 WHERE taskId = :taskId")
     fun archiveTask(taskId: Long)
 

@@ -4,6 +4,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task
+import java.util.*
 
 class ProjectPlannerRepository(private val projectPlannerDao: ProjectPlannerDao) {
 
@@ -63,5 +64,11 @@ class ProjectPlannerRepository(private val projectPlannerDao: ProjectPlannerDao)
             projectPlannerDao.getAllTasksForProjectIncludingArchived(projectId)
         else
             projectPlannerDao.getAllTasksForProject(projectId)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getTasksBetweenDates(from: Date, to: Date): LiveData<List<Task>> {
+        return projectPlannerDao.getTasksBetweenDates(from.time, to.time)
     }
 }

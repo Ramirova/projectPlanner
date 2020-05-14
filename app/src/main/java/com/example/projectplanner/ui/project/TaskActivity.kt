@@ -79,6 +79,7 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
                         start, end, 0, false)
 
                     projectViewModel.insertTask(task)
+                    onBackPressed()
                 } }
         }
 

@@ -14,7 +14,7 @@ import java.util.Date
 @Parcelize
 @TypeParceler<Color, ColorParceler>
 @Entity(tableName = "project")
-class Project(
+data class Project(
 
     @PrimaryKey(autoGenerate = true)
     val projectId: Long,
