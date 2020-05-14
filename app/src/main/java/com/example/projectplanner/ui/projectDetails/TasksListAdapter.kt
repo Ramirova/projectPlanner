@@ -1,6 +1,7 @@
 package com.example.projectplanner.ui.projectDetails
 
 import android.content.Context
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Task
 
-class TasksListAdapter internal constructor(context: Context) : RecyclerView.Adapter<TasksListAdapter.TaskViewHolder>() {
+class TasksListAdapter internal constructor(val context: Context) : RecyclerView.Adapter<TasksListAdapter.TaskViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var animals = emptyList<Task>()
@@ -27,7 +28,7 @@ class TasksListAdapter internal constructor(context: Context) : RecyclerView.Ada
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val current = animals[position]
         holder.taskName.text = current.taskTitle
-        holder.taskDate.text = current.taskStartDate.toString() + " " + current.taskEndDate.toString()
+        holder.taskDate.text = String.format(context.getString(R.string.task_date_string), current.taskStartDate.toString(), current.taskEndDate.toString())
     }
 
     internal fun setTasks(animals: List<Task>) {

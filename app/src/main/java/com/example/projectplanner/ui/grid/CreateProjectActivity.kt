@@ -25,8 +25,8 @@ class CreateProjectActivity : AppCompatActivity() {
     @Inject
     lateinit var projectViewModel: ProjectViewModel
 
-    var startDate = Date()
-    var endDate = Date()
+    private var startDate = Date()
+    private var endDate = Date()
     var chosenColor = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,8 +83,7 @@ class CreateProjectActivity : AppCompatActivity() {
     }
 
     fun onChooseColorPickerButtonClick(view: View) {
-        var mDefaultColor = ContextCompat.getColor(this, R.color.colorPrimary)
-        var layout = findViewById<ConstraintLayout>(R.id.create_project_layout)
+        val mDefaultColor = ContextCompat.getColor(this, R.color.colorPrimary)
 
         val ambilWarnaListener = object : OnAmbilWarnaListener {
             override fun onCancel(dialog: AmbilWarnaDialog?) {}
@@ -92,11 +91,11 @@ class CreateProjectActivity : AppCompatActivity() {
                 // here the work with color
                 chosenColor = color
 
-                var newColor = "#" + Integer.toHexString(color)
+                val newColor = "#" + Integer.toHexString(color)
                 findViewById<TextView>(R.id.create_project_color_text).text = newColor
             }
         }
-        var colorPicker = AmbilWarnaDialog(this, mDefaultColor, ambilWarnaListener)
+        val colorPicker = AmbilWarnaDialog(this, mDefaultColor, ambilWarnaListener)
 
         colorPicker.show()
     }
@@ -105,23 +104,14 @@ class CreateProjectActivity : AppCompatActivity() {
         this.onBackPressed()
     }
 
-    fun onCreateButtonClick() {
-        // input data processing
-        // input values
-        val projectTitle =
-            findViewById<EditText>(R.id.create_project_title_input).text.toString()
-        val projectDescription =
-            findViewById<EditText>(R.id.create_project_description_input).text.toString()
-        val projectStartDate = startDate
-        val projectEndDate = endDate
-        val projectColor = chosenColor
-
+    private fun onCreateButtonClick() {
         val newProject = Project(
             UUID.randomUUID().leastSignificantBits,
-            projectTitle,
-            projectDescription,
-            projectStartDate, projectEndDate,
-            Color.valueOf(projectColor)
+            findViewById<EditText>(R.id.create_project_title_input).text.toString(),
+            findViewById<EditText>(R.id.create_project_description_input).text.toString(),
+            startDate,
+            endDate,
+            Color.valueOf(chosenColor)
         )
 
         projectViewModel.insertProject(newProject)
