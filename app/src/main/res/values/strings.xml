@@ -17,7 +17,7 @@
     </string-array>
 
     <string-array name="default_header_title" tools:ignore="InconsistentArrays">
-        <item></item>
+        <item />
     </string-array>
 
     <string name="create_project_title_input">Project title</string>
@@ -44,6 +44,13 @@
     <string name="mobdev">MobDev</string>
     <string name="core_course">Core course</string>
     <string name="choose">Choose</string>
+    <string name="plus">+</string>
+    <string name="create_new_task">Create new task:</string>
+    <string name="enter_the_task_name">Enter the task name</string>
+    <string name="select_project">Select project</string>
+    <string name="start_date">Start date</string>
+    <string name="completed_before_deadline">Completed before deadline</string>
+    <string name="end_date">End date</string>
 
 
 </resources>

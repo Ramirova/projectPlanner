@@ -9,10 +9,9 @@
         android:id="@+id/task_screen_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:text="Create new task:"
-        android:textFontWeight="@android:integer/config_longAnimTime"
+        android:text="@string/create_new_task"
         android:textSize="20sp" />
 
     <EditText
@@ -20,9 +19,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="20dp"
-        android:hint="Enter the task name"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="20dp"
+        android:hint="@string/enter_the_task_name"
         android:inputType="text"
         android:importantForAutofill="no" />
 
@@ -31,7 +30,7 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:hint="Select project"
+        android:hint="@string/select_project"
         android:inputType="text"/>
 
     <EditText
@@ -39,34 +38,38 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginTop="20dp"
         android:layout_marginLeft="30dp"
-        android:hint="Start date"
-        android:importantForAutofill="no" />
+        android:layout_marginTop="20dp"
+        android:hint="@string/start_date"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        tools:ignore="RtlHardcoded" />
 
     <EditText
         android:id="@+id/end_date"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:hint="End date"
-        android:importantForAutofill="no" />
+        android:hint="@string/end_date"
+        android:importantForAutofill="no"
+        android:inputType="date"
+        tools:ignore="RtlHardcoded" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:hint="Completed before deadline" />
+        android:layout_marginStart="30dp"
+        android:hint="@string/completed_before_deadline" />
 
     <Button
         android:id="@+id/save_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:text="@string/Save"
         android:onClick="onSaveButtonClick"
         />
@@ -76,7 +79,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:text="@string/Delete"
         android:onClick="onDeleteButtonClick"
         />

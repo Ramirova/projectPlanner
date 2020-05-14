@@ -75,7 +75,7 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         save_button.setOnClickListener {
             startDate?.let { start ->
                 endDate?.let { end ->
-                    val task = Task(0, currentProjectId, task_name.text.toString(), null,
+                    val task = Task(0, currentProjectId, task_name.text.toString(), "",
                         start, end, 0, false)
 
                     projectViewModel.insertTask(task)
