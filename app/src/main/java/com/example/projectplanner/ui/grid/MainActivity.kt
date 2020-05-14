@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             ProjectTableView.OnStickerSelectedListener {
             override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
                 val taskIntent = Intent(this@MainActivity, TaskActivity::class.java)
+                intent.putExtra("task_id", schedules?.get(0)?.professorName)
                 // FIXME: this handler provides a sticker.
                 // TODO: Need to get make a task out of it, but how to get id?
                 // taskIntent.putExtra("EXTRA_TASK", schedules!![idx])
@@ -81,6 +82,7 @@ class MainActivity : AppCompatActivity() {
                 tasks.forEach { task ->
                     val schedules = ArrayList<Schedule>()
                     val schedule = Schedule()
+                    schedule.professorName = task.taskId.toString()
                     schedule.classTitle = task.taskTitle
                     schedule.classPlace = task.taskDescription
                     schedule.startTime = Time(task.taskStartDate.date, 0)
@@ -122,6 +124,7 @@ class MainActivity : AppCompatActivity() {
                 projectViewModel.selectMonth(position)
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

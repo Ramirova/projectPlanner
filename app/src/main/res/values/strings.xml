@@ -33,11 +33,11 @@
     <string name="Delete"> Delete</string>
     <string name="Cancel"> Cancel</string>
 
-    <string name="choose_project_start_date_title">Choose project start date:</string>
-    <string name="choose_project_end_date_title">Choose project end date:</string>
+    <string name="choose_project_start_date_title">Choose project start date</string>
+    <string name="choose_project_end_date_title">Choose project end date</string>
     <string name="create_project_start_date_text" />
 
-    <string name="choose_project_color_title">Choose project color:</string>
+    <string name="choose_project_color_title">Choose project color</string>
     <string name="task_date">task date</string>
     <string name="taskname">taskName</string>
     <string name="tasks">Tasks</string>
@@ -45,7 +45,7 @@
     <string name="core_course">Core course</string>
     <string name="choose">Choose</string>
     <string name="plus">+</string>
-    <string name="create_new_task">Create new task:</string>
+    <string name="create_new_task">Create new task</string>
     <string name="enter_the_task_name">Enter the task name</string>
     <string name="select_project">Select project</string>
     <string name="start_date">Start date</string>

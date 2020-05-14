@@ -9,11 +9,13 @@
 
     <EditText
         android:id="@+id/create_project_title_input"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:textSize="25sp"
         android:hint="@string/create_project_title_input"
         android:inputType="textShortMessage"
         android:textColorHint="@color/white"

@@ -1,6 +1,7 @@
 package com.example.projectplanner.ui.project
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -13,6 +14,7 @@ import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Task
 import com.example.projectplanner.domain.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_task.*
+import kotlinx.android.synthetic.main.app_toolbar.*
 import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
@@ -32,9 +34,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_task)
+        setContentView(R.layout.activity_task_edit)
         (application as ProjectPlannerApplication).appComponent.inject(this)
-
 
         currentTask = intent.getParcelableExtra<Task>("EXTRA_TASK")
 
