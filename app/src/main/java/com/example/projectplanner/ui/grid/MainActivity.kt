@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar
 import android.content.Intent
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
@@ -65,6 +66,8 @@ class MainActivity : AppCompatActivity() {
                 projectNames.add(project.projectTitle)
             }
 
+            timetable.removeAll()
+
             timetable.updateHeaderTitle(projectNames)
 
             subscribeTasksFor(projectToColumns)
@@ -74,15 +77,15 @@ class MainActivity : AppCompatActivity() {
     private fun subscribeTasksFor(projectColumns: ArrayList<Long>) {
         projectViewModel.allTasks.observe(this, Observer { tasks ->
             val schedules = ArrayList<Schedule>()
-            val schedule = Schedule()
             tasks.forEach { task ->
+                val schedule = Schedule()
                 schedule.classTitle = task.taskTitle
                 schedule.classPlace = task.taskDescription
                 schedule.startTime = Time(task.taskStartDate.day, 0)
                 schedule.endTime = Time(task.taskEndDate.day, 0)
                 schedule.day = projectColumns.indexOf(task.parentProjectId)
+                schedules.add(schedule)
             }
-            schedules.add(schedule)
             timetable.add(schedules)
         })
     }
@@ -96,7 +99,6 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId;
@@ -115,8 +117,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onPlusButtonCLick(view: View) {
-        val taskIntent = Intent(this, TaskActivity::class.java)
-        startActivity(taskIntent)
+        if (projectNames.isEmpty()) {
+            Toast.makeText(this, "Create a project first!", Toast.LENGTH_SHORT).show()
+        } else {
+            val taskIntent = Intent(this, TaskActivity::class.java)
+            startActivity(taskIntent)
+        }
     }
 }
 

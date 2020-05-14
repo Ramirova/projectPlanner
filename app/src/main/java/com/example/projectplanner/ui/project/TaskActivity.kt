@@ -25,6 +25,9 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     var currentProjectName: String = "" //TODO переделать в кортеж с именами
     var currentProjectId: Long = 0
 
+    var startDate: Date? = null
+    var endDate: Date? = null
+
     var currentTask: Task? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +35,12 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_task)
         (application as ProjectPlannerApplication).appComponent.inject(this)
 
-        var startDate: Date? = null
-        var endDate: Date? = null
 
         currentTask = intent.getParcelableExtra<Task>("EXTRA_TASK")
 
         populateProjects()
+
+        select_project.onItemSelectedListener = this
 
         start_date.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -47,9 +50,9 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             DatePickerDialog(
                 this@TaskActivity,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    start_date.setText("$dayOfMonth/$monthOfYear/$year")
-                    endDate = Date(year, month, day)
+                DatePickerDialog.OnDateSetListener { view, sY, sM, sD ->
+                    start_date.setText("$sD/${sM+1}/$sY")
+                    startDate = Date(sY-1900, sM, sD)
                 }, year, month, day
             ).show()
         }
@@ -62,9 +65,9 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             DatePickerDialog(
                 this@TaskActivity,
-                DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                    end_date.setText("$dayOfMonth/$monthOfYear/$year")
-                    startDate = Date(year, month, day)
+                DatePickerDialog.OnDateSetListener { view, sY, sM, sD ->
+                    end_date.setText("$sD/${sM+1}/$sY")
+                    endDate = Date(sY-1900, sM, sD)
                 }, year, month, day
             ).show()
         }
