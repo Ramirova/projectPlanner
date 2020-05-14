@@ -78,8 +78,8 @@ class MainActivity : AppCompatActivity() {
         projectViewModel.selectedTasks.observe(this, Observer { tasks ->
             timetable.removeAll()
             if (!tasks.isNullOrEmpty()) {
-                val schedules = ArrayList<Schedule>()
                 tasks.forEach { task ->
+                    val schedules = ArrayList<Schedule>()
                     val schedule = Schedule()
                     schedule.classTitle = task.taskTitle
                     schedule.classPlace = task.taskDescription
@@ -87,8 +87,8 @@ class MainActivity : AppCompatActivity() {
                     schedule.endTime = Time(task.taskEndDate.date + 1, 0)
                     schedule.day = this@MainActivity.projectToColumns.indexOf(task.parentProjectId)
                     schedules.add(schedule)
+                    timetable.add(schedules)
                 }
-                timetable.add(schedules)
             }
         })
     }
