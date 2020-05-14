@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 const val PROJECT_ID = "project_id"
 
-class ProjectDetails : AppCompatActivity() {
+class ProjectDetailsActivity : AppCompatActivity() {
 
     @Inject
     lateinit var projectViewModel: ProjectViewModel
