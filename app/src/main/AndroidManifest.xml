@@ -8,23 +8,23 @@
         tools:overrideLibrary="com.github.tlaabs.timetableview" />
 
     <application
+        android:name=".ProjectPlannerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".ProjectPlannerApplication"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-
+        <activity android:name=".ui.projectDetails.ProjectDetails"></activity>
         <activity android:name=".ui.grid.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".ui.grid.CreateProjectActivity" />
         <activity android:name=".ui.project.TaskActivity" />
-
     </application>
 
 </manifest>

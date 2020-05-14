@@ -64,8 +64,12 @@ class ProjectViewModel
         selectedMonth.postValue(m)
     }
 
-    suspend fun getProject(projectId: Long): LiveData<Project> {
+    fun getProject(projectId: Long): LiveData<Project> {
         return repository.getProject(projectId)
+    }
+
+    fun getTasksForProject(project: Project, includeArchived: Boolean = false): LiveData<List<Task>> {
+        return repository.getTasksForProject(project, includeArchived)
     }
 
     fun getTasksForProject(project: Project): LiveData<List<Task>> {
