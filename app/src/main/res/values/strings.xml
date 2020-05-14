@@ -43,6 +43,7 @@
     <string name="tasks">Tasks</string>
     <string name="mobdev">MobDev</string>
     <string name="core_course">Core course</string>
+    <string name="choose">Choose</string>
 
 
 </resources>
