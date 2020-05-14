@@ -20,10 +20,6 @@ import kotlinx.android.synthetic.main.activity_main.toolbar
 import com.example.projectplanner.ui.ProjectTableView
 import com.example.projectplanner.ui.project.TaskActivity
 import kotlinx.android.synthetic.main.app_toolbar.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -45,11 +41,13 @@ class MainActivity : AppCompatActivity() {
         subscribeProjects()
         subscribeTasks()
 
-        val taskIntent = Intent(this, TaskActivity::class.java)
-
         timetable.setOnStickerSelectEventListener(object :
             ProjectTableView.OnStickerSelectedListener {
             override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
+                val taskIntent = Intent(this@MainActivity, TaskActivity::class.java)
+                // FIXME: this handler provides a sticker.
+                // TODO: Need to get make a task out of it, but how to get id?
+                // taskIntent.putExtra("EXTRA_TASK", schedules!![idx])
                 startActivity(taskIntent)
             }
         })
@@ -57,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // subscribeProjects()
+        // TODO: how observes behave on activity change?
     }
 
     private fun subscribeProjects() {
@@ -70,9 +68,9 @@ class MainActivity : AppCompatActivity() {
                 projectNames.add(project.projectTitle)
             }
 
+            timetable.removeAll()
             timetable.updateHeaderTitle(projectNames)
-
-            // subscribeTasksFor(projectToColumns)
+            projectViewModel.selectMonth(projectViewModel.selectedMonth.value!!)
         })
     }
 

@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.projectplanner.data.db.models.Converters
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task

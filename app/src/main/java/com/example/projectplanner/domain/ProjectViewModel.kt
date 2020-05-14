@@ -6,9 +6,6 @@ import com.example.projectplanner.data.db.ProjectPlannerDatabase
 import com.example.projectplanner.data.db.ProjectPlannerRepository
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
@@ -39,25 +36,26 @@ class ProjectViewModel
     }
 
     fun insertProject(project: Project) {
-        viewModelScope.launch {
+        // This is wrong. Too bad!
+        runBlocking {
             repository.insertProject(project)
         }
     }
 
     fun insertTask(task: Task) {
-        viewModelScope.launch {
+        runBlocking {
             repository.insertTask(task)
         }
     }
 
     fun deleteTask(task: Task) {
-        viewModelScope.launch {
+        runBlocking {
             repository.deleteTask(task)
         }
     }
 
     fun deleteProject(project: Project) {
-        viewModelScope.launch {
+        runBlocking {
             repository.deleteProject(project)
         }
     }
