@@ -80,4 +80,10 @@ class ProjectViewModel
         return repository.getTasksForProject(projectId)
     }
 
+    fun getTask(taskId: Long): LiveData<Task> {
+        return runBlocking {
+             repository.getTask(taskId)
+        }
+    }
+
 }
