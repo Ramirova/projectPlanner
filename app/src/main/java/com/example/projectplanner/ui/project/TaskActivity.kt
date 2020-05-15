@@ -1,7 +1,6 @@
 package com.example.projectplanner.ui.project
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,7 +13,6 @@ import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Task
 import com.example.projectplanner.domain.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_task.*
-import kotlinx.android.synthetic.main.app_toolbar.*
 import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
