@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import android.content.Intent
+import android.os.Parcel
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -46,7 +47,9 @@ class MainActivity : AppCompatActivity() {
             ProjectTableView.OnStickerSelectedListener {
             override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
                 val taskIntent = Intent(this@MainActivity, TaskActivity::class.java)
-                intent.putExtra("task_id", schedules?.get(0)?.professorName)
+
+                taskIntent.putExtra("EXTRA_TASK_ID",
+                    schedules?.get(0)?.professorName!!.toLong())
                 // FIXME: this handler provides a sticker.
                 // TODO: Need to get make a task out of it, but how to get id?
                 // taskIntent.putExtra("EXTRA_TASK", schedules!![idx])
