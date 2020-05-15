@@ -26,6 +26,7 @@ class ProjectViewModel
         repository = ProjectPlannerRepository(projectPlannerDao)
         allProjects = repository.allProjects
         allTasks = repository.allTasks
+
         selectedTasks = Transformations.switchMap(selectedMonth) { m ->
             repository.getTasksBetweenDates(
                 // Yes, this only works for 2020. Too bad!
@@ -60,6 +61,14 @@ class ProjectViewModel
         }
     }
 
+    fun getTaskParentProjectWithoutLiveDataBullshit(task: Task): Project {
+        return repository.getTaskParentProjectWithoutLiveDataBullshit(task)
+    }
+
+    fun getTaskByIdWithoutLiveDataBullshit(taskId: Long): Task {
+        return repository.getTaskByIdWithoutLiveDataBullshit(taskId)
+    }
+
     fun selectMonth(m: Int) {
         selectedMonth.postValue(m)
     }
@@ -81,9 +90,7 @@ class ProjectViewModel
     }
 
     fun getTask(taskId: Long): LiveData<Task> {
-        return runBlocking {
-             repository.getTask(taskId)
-        }
+        return repository.getTask(taskId)
     }
 
 }

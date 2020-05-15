@@ -21,6 +21,9 @@ interface ProjectPlannerDao {
     @Query("SELECT * FROM project WHERE projectId = :projectId")
     fun getProjectById(projectId: Long): LiveData<Project>
 
+    @Query("SELECT * FROM project WHERE projectId = :projectId")
+    fun getProjectByIdWithoutLiveDataBullshit(projectId: Long): Project
+
     @Query("DELETE FROM project")
     fun deleteAllProjects()
 
@@ -41,6 +44,9 @@ interface ProjectPlannerDao {
 
     @Query("SELECT * FROM task WHERE taskId = :taskId")
     fun getTaskById(taskId: Long): LiveData<Task>
+    
+    @Query("SELECT * FROM task WHERE taskId = :taskId")
+    fun getTaskByIdWithoutLiveDataBullshit(taskId: Long): Task
 
     @Query("SELECT * FROM task WHERE parentProjectId = :projectId AND task_archived = 0")
     fun getAllTasksForProject(projectId: Long): LiveData<List<Task>>

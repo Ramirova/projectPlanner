@@ -41,7 +41,7 @@ class ProjectPlannerRepository(private val projectPlannerDao: ProjectPlannerDao)
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getTask(taskId: Long): LiveData<Task> {
+    fun getTask(taskId: Long): LiveData<Task> {
         return projectPlannerDao.getTaskById(taskId)
     }
 
@@ -53,7 +53,6 @@ class ProjectPlannerRepository(private val projectPlannerDao: ProjectPlannerDao)
 
     }
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     fun getTasksForProject(projectId: Long, includeArchived: Boolean = false): LiveData<List<Task>> {
         return if (includeArchived)
@@ -62,9 +61,15 @@ class ProjectPlannerRepository(private val projectPlannerDao: ProjectPlannerDao)
             projectPlannerDao.getAllTasksForProject(projectId)
     }
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
     fun getTasksBetweenDates(from: Date, to: Date): LiveData<List<Task>> {
         return projectPlannerDao.getTasksBetweenDates(from.time, to.time)
+    }
+
+    fun getTaskParentProjectWithoutLiveDataBullshit(task: Task): Project {
+        return projectPlannerDao.getProjectByIdWithoutLiveDataBullshit(task.parentProjectId)
+    }
+    
+    fun getTaskByIdWithoutLiveDataBullshit(taskId: Long): Task {
+        return projectPlannerDao.getTaskByIdWithoutLiveDataBullshit(taskId)
     }
 }
