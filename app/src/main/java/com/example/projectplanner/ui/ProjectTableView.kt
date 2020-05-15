@@ -248,6 +248,12 @@ class ProjectTableView : LinearLayout {
         setStickerColor()
     }
 
+    // FIXME: this doesn't check for index boundaries
+    fun setHeaderOnClickListener(idx: Int, listener: OnClickListener) {
+        val row = tableHeader!!.getChildAt(0) as TableRow
+        row.getChildAt(idx).setOnClickListener(listener)
+    }
+
     fun setHeaderHighlight(idx: Int) {
         if (idx < 0) return
         val row = tableHeader!!.getChildAt(0) as TableRow

@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import com.example.projectplanner.ui.ProjectTableView
 import com.example.projectplanner.ui.project.TaskActivity
+import com.example.projectplanner.ui.projectDetails.ProjectDetailsActivity
 import kotlinx.android.synthetic.main.app_toolbar.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -71,6 +72,11 @@ class MainActivity : AppCompatActivity() {
 
             timetable.removeAll()
             timetable.updateHeaderTitle(projectNames)
+            for (idx in 0 until projectToColumns.size) {
+                setProjectTitlesOnClickListener(timetable, idx)
+            }
+            // XXX: dirty hack to force the refresh of stickers,
+            // or else they would be pushed outside of newly re-created table
             projectViewModel.selectMonth(projectViewModel.selectedMonth.value!!)
         })
     }
@@ -121,6 +127,11 @@ class MainActivity : AppCompatActivity() {
                 // this function removes everything except for stickers,
                 // so get get pushed to the side.
                 timetable.updateNumDays(nDays)
+                // XXX: we have to reset handlers even when we change the date
+                // because library just nukes it's views
+                for (idx in 0 until projectToColumns.size) {
+                    setProjectTitlesOnClickListener(timetable, idx)
+                }
                 projectViewModel.selectMonth(position)
             }
         }
@@ -147,12 +158,23 @@ class MainActivity : AppCompatActivity() {
         startActivity(createProjectIntent)
     }
 
+    fun setProjectTitlesOnClickListener(timetable: ProjectTableView, idx: Int) {
+        timetable.setHeaderOnClickListener(
+            idx + 1, // library counts row titles as a column 0
+            View.OnClickListener {
+                val intent = Intent(this@MainActivity, ProjectDetailsActivity::class.java)
+                intent.putExtra("project_id", projectToColumns[idx])
+                startActivity(intent)
+
+            })
+    }
+
     fun onPlusButtonCLick(view: View) {
         if (projectNames.isEmpty()) {
             Toast.makeText(this, "Create a project first!", Toast.LENGTH_SHORT).show()
         } else {
-            val taskIntent = Intent(this, TaskActivity::class.java)
-            startActivity(taskIntent)
+            val intent = Intent(this, TaskActivity::class.java)
+            startActivity(intent)
         }
     }
 }
