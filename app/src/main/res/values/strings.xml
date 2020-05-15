@@ -51,6 +51,6 @@
     <string name="start_date">Start date</string>
     <string name="completed_before_deadline">Completed before deadline</string>
     <string name="end_date">End date</string>
-    <string name="task_date_string">H%1$s %2$s</string>
+    <string name="task_date_string">%1$s %2$s</string>
 
 </resources>
