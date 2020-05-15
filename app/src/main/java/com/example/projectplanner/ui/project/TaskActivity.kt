@@ -37,7 +37,9 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         setContentView(R.layout.activity_task_edit)
         (application as ProjectPlannerApplication).appComponent.inject(this)
 
-        currentTask = intent.getParcelableExtra<Task>("EXTRA_TASK")
+        currentTask = projectViewModel.getTask(
+            intent.getLongExtra("EXTRA_TASK_ID", 0)
+        ).value
 
         populateProjects()
 
@@ -52,8 +54,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             DatePickerDialog(
                 this@TaskActivity,
                 DatePickerDialog.OnDateSetListener { view, sY, sM, sD ->
-                    start_date.setText("$sD/${sM+1}/$sY")
-                    startDate = Date(sY-1900, sM, sD)
+                    start_date.setText("$sD/${sM + 1}/$sY")
+                    startDate = Date(sY - 1900, sM, sD)
                 }, year, month, day
             ).show()
         }
@@ -67,8 +69,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             DatePickerDialog(
                 this@TaskActivity,
                 DatePickerDialog.OnDateSetListener { view, sY, sM, sD ->
-                    end_date.setText("$sD/${sM+1}/$sY")
-                    endDate = Date(sY-1900, sM, sD)
+                    end_date.setText("$sD/${sM + 1}/$sY")
+                    endDate = Date(sY - 1900, sM, sD)
                 }, year, month, day
             ).show()
         }
@@ -76,12 +78,15 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         save_button.setOnClickListener {
             startDate?.let { start ->
                 endDate?.let { end ->
-                    val task = Task(0, currentProjectId, task_name.text.toString(), "",
-                        start, end, 0, false)
+                    val task = Task(
+                        0, currentProjectId, task_name.text.toString(), "",
+                        start, end, 0, false
+                    )
 
                     projectViewModel.insertTask(task)
                     onBackPressed()
-                } }
+                }
+            }
         }
 
         if (currentTask != null) {
@@ -117,7 +122,10 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
     private fun populateProjects() {
         projectViewModel.allProjects.observe(this, Observer { projects ->
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, projects.map { project ->  project.projectTitle })
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                projects.map { project -> project.projectTitle })
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             select_project.adapter = adapter
         })
