@@ -27,7 +27,6 @@
             android:background="@android:color/transparent"
             android:gravity="right"
             android:text="@string/plus"
-            android:onClick="onPlusButtonCLick"
             tools:ignore="RtlHardcoded" />
 
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.widget.Toolbar
 import android.content.Intent
-import android.os.Parcel
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
@@ -56,11 +55,9 @@ class MainActivity : AppCompatActivity() {
                 startActivity(taskIntent)
             }
         })
-    }
 
-    override fun onResume() {
-        super.onResume()
-        // TODO: how observes behave on activity change?
+
+        add_task.setOnClickListener { onPlusButtonCLick() }
     }
 
     private fun subscribeProjects() {
@@ -147,7 +144,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId;
+        val id = item.itemId
         if (id == R.id.create_project_btn) {
             onCreateProjectButtonClick()
         } else if (id == R.id.archived_projects_btn) {
@@ -156,7 +153,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun onCreateProjectButtonClick() {
+    private fun onCreateProjectButtonClick() {
         val createProjectIntent = Intent(this, CreateProjectActivity::class.java)
         startActivity(createProjectIntent)
     }
@@ -172,7 +169,7 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    fun onPlusButtonCLick(view: View) {
+    private fun onPlusButtonCLick() {
         if (projectNames.isEmpty()) {
             Toast.makeText(this, "Create a project first!", Toast.LENGTH_SHORT).show()
         } else {
