@@ -8,7 +8,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
@@ -44,9 +43,14 @@ class CreateProjectActivity : AppCompatActivity() {
             findViewById<Button>(R.id.create_project_create_btn).visibility = View.VISIBLE
             findViewById<Button>(R.id.create_project_delete_btn).visibility = View.INVISIBLE
         }
+
+        create_project_start_date_btn.setOnClickListener { onChooseStartDateButtonClick() }
+        create_project_end_date_btn.setOnClickListener { onChooseEndDateButtonClick() }
+        create_project_color_picker_btn.setOnClickListener { onChooseColorPickerButtonClick() }
+        create_project_cancel_btn.setOnClickListener { onCancelButtonClick() }
     }
 
-    fun onChooseStartDateButtonClick(view: View) {
+    fun onChooseStartDateButtonClick() {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -54,9 +58,9 @@ class CreateProjectActivity : AppCompatActivity() {
 
         val dpd = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                val startDateText = findViewById<TextView>(R.id.create_project_start_date_text)
-                    .setText(dayOfMonth.toString() + "." + monthOfYear + "." + year)
+            DatePickerDialog.OnDateSetListener { _, selectedYear, monthOfYear, dayOfMonth ->
+                val startDateText = String.format(this.getString(R.string.date_dotted), dayOfMonth.toString(), monthOfYear, selectedYear)
+                findViewById<TextView>(R.id.create_project_start_date_text).text = startDateText
                 startDate = Date(year, monthOfYear, dayOfMonth)
             }, year, month, day
         )
@@ -64,7 +68,7 @@ class CreateProjectActivity : AppCompatActivity() {
         dpd.show()
     }
 
-    fun onChooseEndDateButtonClick(view: View) {
+    fun onChooseEndDateButtonClick() {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -72,8 +76,8 @@ class CreateProjectActivity : AppCompatActivity() {
 
         val dpd = DatePickerDialog(
             this,
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                val endValue = "$dayOfMonth.$monthOfYear.$year"
+            DatePickerDialog.OnDateSetListener { _, selectedYear, monthOfYear, dayOfMonth ->
+                val endValue = "$dayOfMonth.$monthOfYear.$selectedYear"
                 findViewById<TextView>(R.id.create_project_end_date_text).text = endValue
                 endDate = Date(year, monthOfYear, dayOfMonth)
             }, year, month, day
@@ -82,7 +86,7 @@ class CreateProjectActivity : AppCompatActivity() {
         dpd.show()
     }
 
-    fun onChooseColorPickerButtonClick(view: View) {
+    fun onChooseColorPickerButtonClick() {
         val mDefaultColor = ContextCompat.getColor(this, R.color.colorPrimary)
 
         val ambilWarnaListener = object : OnAmbilWarnaListener {
@@ -100,7 +104,7 @@ class CreateProjectActivity : AppCompatActivity() {
         colorPicker.show()
     }
 
-    fun onCancelButtonClick(view: View) {
+    fun onCancelButtonClick() {
         this.onBackPressed()
     }
 

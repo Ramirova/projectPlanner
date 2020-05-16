@@ -53,5 +53,5 @@
     <string name="completed_before_deadline">Completed before deadline</string>
     <string name="end_date">End date</string>
     <string name="task_date_string">%1$s %2$s</string>
-
+    <string name="date_dotted">%1$s.%2$s.%3$s</string>
 </resources>
