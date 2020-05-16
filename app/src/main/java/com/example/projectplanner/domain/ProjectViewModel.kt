@@ -6,7 +6,8 @@ import com.example.projectplanner.data.db.ProjectPlannerDatabase
 import com.example.projectplanner.data.db.ProjectPlannerRepository
 import com.example.projectplanner.data.db.models.Project
 import com.example.projectplanner.data.db.models.Task
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -36,29 +37,20 @@ class ProjectViewModel
         }
     }
 
-    fun insertProject(project: Project) {
-        // This is wrong. Too bad!
-        runBlocking {
-            repository.insertProject(project)
-        }
+    fun insertProject(project: Project) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertProject(project)
     }
 
-    fun insertTask(task: Task) {
-        runBlocking {
-            repository.insertTask(task)
-        }
+    fun insertTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertTask(task)
     }
 
-    fun deleteTask(task: Task) {
-        runBlocking {
-            repository.deleteTask(task)
-        }
+    fun deleteTask(task: Task) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteTask(task)
     }
 
-    fun deleteProject(project: Project) {
-        runBlocking {
-            repository.deleteProject(project)
-        }
+    fun deleteProject(project: Project) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteProject(project)
     }
 
     fun getTaskParentProjectWithoutLiveDataBullshit(task: Task): Project {
