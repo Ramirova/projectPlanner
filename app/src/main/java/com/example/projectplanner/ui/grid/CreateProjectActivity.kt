@@ -50,7 +50,7 @@ class CreateProjectActivity : AppCompatActivity() {
         create_project_cancel_btn.setOnClickListener { onCancelButtonClick() }
     }
 
-    fun onChooseStartDateButtonClick() {
+    private fun onChooseStartDateButtonClick() {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -68,7 +68,7 @@ class CreateProjectActivity : AppCompatActivity() {
         dpd.show()
     }
 
-    fun onChooseEndDateButtonClick() {
+    private fun onChooseEndDateButtonClick() {
         val c = Calendar.getInstance()
         val year = c.get(Calendar.YEAR)
         val month = c.get(Calendar.MONTH)
@@ -86,7 +86,7 @@ class CreateProjectActivity : AppCompatActivity() {
         dpd.show()
     }
 
-    fun onChooseColorPickerButtonClick() {
+    private fun onChooseColorPickerButtonClick() {
         val mDefaultColor = ContextCompat.getColor(this, R.color.colorPrimary)
 
         val ambilWarnaListener = object : OnAmbilWarnaListener {
@@ -104,7 +104,7 @@ class CreateProjectActivity : AppCompatActivity() {
         colorPicker.show()
     }
 
-    fun onCancelButtonClick() {
+    private fun onCancelButtonClick() {
         this.onBackPressed()
     }
 
