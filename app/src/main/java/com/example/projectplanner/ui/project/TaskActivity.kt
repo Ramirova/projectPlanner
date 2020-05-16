@@ -1,7 +1,6 @@
 package com.example.projectplanner.ui.project
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,8 +13,6 @@ import com.example.projectplanner.R
 import com.example.projectplanner.data.db.models.Task
 import com.example.projectplanner.domain.ProjectViewModel
 import kotlinx.android.synthetic.main.activity_task.*
-import kotlinx.android.synthetic.main.app_toolbar.*
-import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
@@ -24,14 +21,10 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
     @Inject
     lateinit var projectViewModel: ProjectViewModel
 
-    var currentProjectName: String = "" //TODO переделать в кортеж с именами
-    var currentProjectId: Long = 0
-
-    var startDate: Date? = null
-    var endDate: Date? = null
-
-    var currentTask: Task? = null
-    var currentTaskId: Long? = null
+    private var currentProjectId: Long = 0
+    private var startDate: Date? = null
+    private var endDate: Date? = null
+    private var currentTask: Task? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +45,7 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             DatePickerDialog(
                 this@TaskActivity,
-                DatePickerDialog.OnDateSetListener { view, sY, sM, sD ->
+                DatePickerDialog.OnDateSetListener { _, sY, sM, sD ->
                     start_date.setText("$sD/${sM + 1}/$sY")
                     startDate = Date(sY - 1900, sM, sD)
                 }, year, month, day
@@ -67,7 +60,7 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             DatePickerDialog(
                 this@TaskActivity,
-                DatePickerDialog.OnDateSetListener { view, sY, sM, sD ->
+                DatePickerDialog.OnDateSetListener { _, sY, sM, sD ->
                     end_date.setText("$sD/${sM + 1}/$sY")
                     endDate = Date(sY - 1900, sM, sD)
                 }, year, month, day
@@ -171,15 +164,12 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         })
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        // TODO
-    }
+    override fun onNothingSelected(parent: AdapterView<*>?) { }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        currentProjectName = select_project.selectedItem.toString()
+        val currentProjectName = select_project.selectedItem.toString()
 
-        projectViewModel.allProjects.value?.findLast { project -> project.projectTitle == currentProjectName }?.projectId?.let {
-            currentProjectId = it
-        }
+        projectViewModel.allProjects.value?.findLast { project ->
+            project.projectTitle == currentProjectName }?.projectId?.let { currentProjectId = it }
     }
 }
