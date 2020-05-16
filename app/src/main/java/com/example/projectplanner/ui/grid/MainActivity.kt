@@ -44,14 +44,11 @@ class MainActivity : AppCompatActivity() {
 
         timetable.setOnStickerSelectEventListener(object :
             ProjectTableView.OnStickerSelectedListener {
-            override fun OnStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
+            override fun onStickerSelected(idx: Int, schedules: java.util.ArrayList<Schedule>?) {
                 val taskIntent = Intent(this@MainActivity, TaskActivity::class.java)
 
                 taskIntent.putExtra("EXTRA_TASK_ID",
                     schedules?.get(0)?.professorName!!.toLong())
-                // FIXME: this handler provides a sticker.
-                // TODO: Need to get make a task out of it, but how to get id?
-                // taskIntent.putExtra("EXTRA_TASK", schedules!![idx])
                 startActivity(taskIntent)
             }
         })

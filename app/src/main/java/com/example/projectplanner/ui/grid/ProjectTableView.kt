@@ -1,5 +1,6 @@
 package com.example.projectplanner.ui.grid
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
@@ -52,6 +53,7 @@ class ProjectTableView : LinearLayout {
         init()
     }
 
+    @SuppressLint("CustomViewStyleable")
     private fun getAttrs(attrs: AttributeSet?) {
         val a = kontext.obtainStyledAttributes(attrs, R.styleable.TimetableView)
         rowCount = a.getInt(
@@ -119,36 +121,6 @@ class ProjectTableView : LinearLayout {
         stickerSelectedListener = listener
     }
 
-    /**
-     * date : 2019-02-08
-     * get all schedules TimetableView has.
-     */
-    val allSchedulesInStickers: ArrayList<Schedule>
-        get() {
-            val allSchedules = ArrayList<Schedule>()
-            for (key in stickers.keys) {
-                for (schedule in stickers[key]!!.schedules) {
-                    allSchedules.add(schedule)
-                }
-            }
-            return allSchedules
-        }
-
-    /**
-     * date : 2019-02-08
-     * Used in Edit mode, To check a invalidate schedule.
-     */
-    fun getAllSchedulesInStickersExceptIdx(idx: Int): ArrayList<Schedule> {
-        val allSchedules = ArrayList<Schedule>()
-        for (key in stickers.keys) {
-            if (idx == key) continue
-            for (schedule in stickers[key]!!.schedules) {
-                allSchedules.add(schedule)
-            }
-        }
-        return allSchedules
-    }
-
     fun updateHeaderTitle(newHeaderTitle: ArrayList<String>) {
         val headerColumns = ArrayList<String>()
         headerColumns.add("")
@@ -181,6 +153,7 @@ class ProjectTableView : LinearLayout {
         add(schedules, -1)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun add(schedules: ArrayList<Schedule>, specIdx: Int) {
         val count = if (specIdx < 0) ++stickerCount else specIdx
         val sticker = Sticker()
@@ -190,8 +163,8 @@ class ProjectTableView : LinearLayout {
             tv.layoutParams = param
             tv.setPadding(10, 0, 10, 0)
             tv.text = """
-                ${schedule.getClassTitle()}
-                ${schedule.getClassPlace()}
+                ${schedule.classTitle}
+                ${schedule.classPlace}
                 """.trimIndent()
             tv.setTextColor(Color.parseColor("#FFFFFF"))
             tv.setTextSize(
@@ -200,7 +173,7 @@ class ProjectTableView : LinearLayout {
             )
             tv.setTypeface(null, Typeface.BOLD)
             tv.setOnClickListener {
-                if (stickerSelectedListener != null) stickerSelectedListener!!.OnStickerSelected(
+                if (stickerSelectedListener != null) stickerSelectedListener!!.onStickerSelected(
                     count,
                     schedules
                 )
@@ -210,23 +183,6 @@ class ProjectTableView : LinearLayout {
             stickers[count] = sticker
             stickerBox!!.addView(tv)
         }
-        setStickerColor()
-    }
-
-    fun createSaveData(): String {
-        return SaveManager.saveSticker(stickers)
-    }
-
-    fun load(data: String?) {
-        removeAll()
-        stickers = SaveManager.loadSticker(data)
-        var maxKey = 0
-        for (key in stickers.keys) {
-            val schedules = stickers[key]!!.schedules
-            add(schedules, key)
-            if (maxKey < key) maxKey = key
-        }
-        stickerCount = maxKey + 1
         setStickerColor()
     }
 
@@ -240,55 +196,10 @@ class ProjectTableView : LinearLayout {
         stickers.clear()
     }
 
-    fun edit(idx: Int, schedules: ArrayList<Schedule>) {
-        remove(idx)
-        add(schedules, idx)
-    }
-
-    fun remove(idx: Int) {
-        val sticker = stickers[idx]
-        for (tv in sticker!!.view) {
-            stickerBox!!.removeView(tv)
-        }
-        stickers.remove(idx)
-        setStickerColor()
-    }
-
     // FIXME: this doesn't check for index boundaries
     fun setHeaderOnClickListener(idx: Int, listener: OnClickListener) {
         val row = tableHeader!!.getChildAt(0) as TableRow
         row.getChildAt(idx).setOnClickListener(listener)
-    }
-
-    fun setHeaderHighlight(idx: Int) {
-        if (idx < 0) return
-        val row = tableHeader!!.getChildAt(0) as TableRow
-        val element = row.getChildAt(idx)
-        if (highlightMode == HighlightMode.COLOR) {
-            val tx = element as TextView
-            tx.setTextColor(Color.parseColor("#FFFFFF"))
-            tx.setBackgroundColor(headerHighlightColor)
-            tx.setTypeface(null, Typeface.BOLD)
-            tx.setTextSize(
-                TypedValue.COMPLEX_UNIT_DIP,
-                DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP.toFloat()
-            )
-        } else if (highlightMode == HighlightMode.IMAGE) {
-            val outer = RelativeLayout(kontext)
-            outer.layoutParams = createTableRowParam(cellHeight)
-            val iv = ImageView(kontext)
-            val params =
-                RelativeLayout.LayoutParams(headerHighlightImageSize, headerHighlightImageSize)
-            params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
-            iv.layoutParams = params
-            iv.scaleType = ImageView.ScaleType.CENTER_CROP
-            row.removeViewAt(idx)
-            outer.addView(iv)
-            row.addView(outer, idx)
-            if (headerHighlightImage != null) {
-                iv.setImageDrawable(headerHighlightImage)
-            }
-        }
     }
 
     private fun setStickerColor() {
@@ -328,6 +239,7 @@ class ProjectTableView : LinearLayout {
         )
     }
 
+    @SuppressLint("RtlHardcoded")
     private fun createTable() {
         createTableHeader()
         for (i in 0 until rowCount) {
@@ -422,105 +334,8 @@ class ProjectTableView : LinearLayout {
         return (i + 1).toString()
     }
 
-    fun onCreateByBuilder(builder: Builder) {
-        rowCount = builder.rowCount
-        columnCount = builder.columnCount
-        cellHeight = builder.cellHeight
-        sideCellWidth = builder.sideCellWidth
-        headerTitle = builder.headerTitle
-        stickerColors = builder.stickerColors
-        startTime = builder.startTime
-        headerHighlightColor = builder.headerHighlightColor
-
-        init()
-    }
-
     interface OnStickerSelectedListener {
-        fun OnStickerSelected(idx: Int, schedules: ArrayList<Schedule>?)
-    }
-
-    class Builder(private val context: Context) {
-        var rowCount: Int
-        var columnCount: Int
-        var cellHeight: Int
-        var sideCellWidth: Int
-        var headerTitle: Array<String>
-        var stickerColors: Array<String>
-        var startTime: Int
-        var headerHighlightColor: Int
-        fun setRowCount(n: Int): Builder {
-            rowCount = n
-            return this
-        }
-
-        fun setColumnCount(n: Int): Builder {
-            columnCount = n
-            return this
-        }
-
-        fun setCellHeight(dp: Int): Builder {
-            cellHeight =
-                dp2Px(
-                    dp
-                )
-            return this
-        }
-
-        fun setSideCellWidth(dp: Int): Builder {
-            sideCellWidth =
-                dp2Px(
-                    dp
-                )
-            return this
-        }
-
-        fun setHeaderTitle(titles: Array<String>): Builder {
-            headerTitle = titles
-            return this.setColumnCount(headerTitle.size)
-        }
-
-        fun setStickerColors(colors: Array<String>): Builder {
-            stickerColors = colors
-            return this
-        }
-
-        fun setStartTime(t: Int): Builder {
-            startTime = t
-            return this
-        }
-
-        fun setHeaderHighlightColor(c: Int): Builder {
-            headerHighlightColor = c
-            return this
-        }
-
-        fun build(): ProjectTableView {
-            val timetableView =
-                ProjectTableView(context)
-            timetableView.onCreateByBuilder(this)
-            return timetableView
-        }
-
-        init {
-            rowCount =
-                DEFAULT_ROW_COUNT
-            columnCount =
-                DEFAULT_COLUMN_COUNT
-            cellHeight =
-                dp2Px(
-                    DEFAULT_CELL_HEIGHT_DP
-                )
-            sideCellWidth =
-                dp2Px(
-                    DEFAULT_SIDE_CELL_WIDTH_DP
-                )
-            headerTitle = context.resources.getStringArray(R.array.default_header_title)
-            stickerColors = context.resources.getStringArray(R.array.default_sticker_color)
-            startTime =
-                DEFAULT_START_TIME
-            headerHighlightColor =
-                context.resources.getColor(R.color.default_header_highlight_color)
-        }
+        fun onStickerSelected(idx: Int, schedules: ArrayList<Schedule>?)
     }
 
     companion object {
@@ -532,7 +347,6 @@ class ProjectTableView : LinearLayout {
         private const val DEFAULT_START_TIME = 1
         private const val DEFAULT_SIDE_HEADER_FONT_SIZE_DP = 13
         private const val DEFAULT_HEADER_FONT_SIZE_DP = 15
-        private const val DEFAULT_HEADER_HIGHLIGHT_FONT_SIZE_DP = 15
         private const val DEFAULT_STICKER_FONT_SIZE_DP = 13
         private fun dp2Px(dp: Int): Int {
             return (dp * Resources.getSystem()

@@ -5,7 +5,7 @@ import com.example.projectplanner.di.DaggerApplicationComponent
 
 class ProjectPlannerApplication : Application() {
 
-    val appComponent = DaggerApplicationComponent.create()
+    val appComponent = DaggerApplicationComponent.create()!!
 
     override fun onCreate() {
         super.onCreate()
