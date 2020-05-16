@@ -72,8 +72,6 @@ class MainActivity : AppCompatActivity() {
             for (idx in 0 until projectToColumns.size) {
                 setProjectTitlesOnClickListener(timetable, idx)
             }
-            // XXX: dirty hack to force the refresh of stickers,
-            // or else they would be pushed outside of newly re-created table
             projectViewModel.selectMonth(projectViewModel.selectedMonth.value!!)
         })
     }
