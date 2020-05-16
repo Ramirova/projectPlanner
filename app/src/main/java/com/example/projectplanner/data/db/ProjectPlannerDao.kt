@@ -11,10 +11,6 @@ interface ProjectPlannerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertProject(project: Project): Long
 
-    // just use insert
-    //@Update
-    //fun updateProject(project: Project)
-
     @Query("SELECT * FROM project")
     fun getProjects(): LiveData<List<Project>>
 
@@ -34,10 +30,6 @@ interface ProjectPlannerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTask(task: Task): Long
-
-    // just use insert
-    // @Update
-    // fun updateTask(task: Task)
 
     @Query("SELECT * FROM task")
     fun getAllTasks(): LiveData<List<Task>>

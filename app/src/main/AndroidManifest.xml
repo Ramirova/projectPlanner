@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.grid.CreateProjectActivity" />
+        <activity android:name=".ui.project.CreateProjectActivity" />
         <activity android:name=".ui.project.TaskActivity" />
     </application>
 

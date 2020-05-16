@@ -1,6 +1,6 @@
 package com.example.projectplanner.di
 
-import com.example.projectplanner.ui.grid.CreateProjectActivity
+import com.example.projectplanner.ui.project.CreateProjectActivity
 import com.example.projectplanner.ui.grid.MainActivity
 import com.example.projectplanner.ui.project.TaskActivity
 import com.example.projectplanner.ui.projectDetails.ProjectDetailsActivity

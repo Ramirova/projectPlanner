@@ -46,7 +46,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             DatePickerDialog(
                 this@TaskActivity,
                 DatePickerDialog.OnDateSetListener { _, sY, sM, sD ->
-                    start_date.setText("$sD/${sM + 1}/$sY")
+                    start_date.text =
+                        String.format(this.getString(R.string.date_slashed), sD, sM + 1, sY)
                     startDate = Date(sY - 1900, sM, sD)
                 }, year, month, day
             ).show()
@@ -61,7 +62,8 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
             DatePickerDialog(
                 this@TaskActivity,
                 DatePickerDialog.OnDateSetListener { _, sY, sM, sD ->
-                    end_date.setText("$sD/${sM + 1}/$sY")
+                    end_date.text =
+                        String.format(this.getString(R.string.date_slashed), sD, sM + 1, sY)
                     endDate = Date(sY - 1900, sM, sD)
                 }, year, month, day
             ).show()
@@ -112,12 +114,12 @@ class TaskActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
 
             task.taskStartDate.let {
                 startDate = it
-                start_date.setText("${it.date}/${it.month + 1}/${it.year + 1900}")
+                start_date.setText(String.format(this.getString(R.string.date_slashed), it.date, it.month + 1, it.year + 1900))
             }
 
             task.taskEndDate.let {
                 endDate = it
-                end_date.setText("${it.date}/${it.month + 1}/${it.year + 1900}")
+                end_date.setText(String.format(this.getString(R.string.date_slashed), it.date, it.month + 1, it.year + 1900))
             }
 
             // update onClickListeners to modify selected Task

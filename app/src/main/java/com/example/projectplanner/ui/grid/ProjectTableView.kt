@@ -1,4 +1,4 @@
-package com.example.projectplanner.ui
+package com.example.projectplanner.ui.grid
 
 import android.app.Activity
 import android.content.Context
@@ -64,12 +64,16 @@ class ProjectTableView : LinearLayout {
         )
         cellHeight = a.getDimensionPixelSize(
             R.styleable.TimetableView_cell_height,
-            dp2Px(DEFAULT_CELL_HEIGHT_DP)
+            dp2Px(
+                DEFAULT_CELL_HEIGHT_DP
+            )
         )
 
         sideCellWidth = a.getDimensionPixelSize(
             R.styleable.TimetableView_side_cell_width,
-            dp2Px(DEFAULT_SIDE_CELL_WIDTH_DP)
+            dp2Px(
+                DEFAULT_SIDE_CELL_WIDTH_DP
+            )
         )
         val titlesId =
             a.getResourceId(R.styleable.TimetableView_header_title, R.array.default_header_title)
@@ -92,7 +96,9 @@ class ProjectTableView : LinearLayout {
             HighlightMode.IMAGE
         headerHighlightImageSize = a.getDimensionPixelSize(
             R.styleable.TimetableView_header_highlight_image_size,
-            dp2Px(24)
+            dp2Px(
+                24
+            )
         )
         headerHighlightImage = a.getDrawable(R.styleable.TimetableView_header_highlight_image)
         a.recycle()
@@ -309,13 +315,17 @@ class ProjectTableView : LinearLayout {
         display.getSize(size)
 
         val freeWidth = size.x - paddingLeft - paddingRight - sideCellWidth
-        if (freeWidth > dp2Px(DEFAULT_CELL_WIDTH_DP) * (columnCount - 1)) {
+        if (freeWidth > dp2Px(
+                DEFAULT_CELL_WIDTH_DP
+            ) * (columnCount - 1)) {
             if (columnCount > 1){
                 return freeWidth / (columnCount - 1)
             }
             return freeWidth
         }
-        return dp2Px(DEFAULT_CELL_WIDTH_DP)
+        return dp2Px(
+            DEFAULT_CELL_WIDTH_DP
+        )
     }
 
     private fun createTable() {
@@ -449,12 +459,18 @@ class ProjectTableView : LinearLayout {
         }
 
         fun setCellHeight(dp: Int): Builder {
-            cellHeight = dp2Px(dp)
+            cellHeight =
+                dp2Px(
+                    dp
+                )
             return this
         }
 
         fun setSideCellWidth(dp: Int): Builder {
-            sideCellWidth = dp2Px(dp)
+            sideCellWidth =
+                dp2Px(
+                    dp
+                )
             return this
         }
 
@@ -486,16 +502,22 @@ class ProjectTableView : LinearLayout {
         }
 
         init {
-            rowCount = DEFAULT_ROW_COUNT
+            rowCount =
+                DEFAULT_ROW_COUNT
             columnCount =
                 DEFAULT_COLUMN_COUNT
             cellHeight =
-                dp2Px(DEFAULT_CELL_HEIGHT_DP)
+                dp2Px(
+                    DEFAULT_CELL_HEIGHT_DP
+                )
             sideCellWidth =
-                dp2Px(DEFAULT_SIDE_CELL_WIDTH_DP)
+                dp2Px(
+                    DEFAULT_SIDE_CELL_WIDTH_DP
+                )
             headerTitle = context.resources.getStringArray(R.array.default_header_title)
             stickerColors = context.resources.getStringArray(R.array.default_sticker_color)
-            startTime = DEFAULT_START_TIME
+            startTime =
+                DEFAULT_START_TIME
             headerHighlightColor =
                 context.resources.getColor(R.color.default_header_highlight_color)
         }

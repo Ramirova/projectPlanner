@@ -49,10 +49,6 @@ class ProjectViewModel
         repository.deleteTask(task)
     }
 
-    fun deleteProject(project: Project) = viewModelScope.launch(Dispatchers.IO) {
-        repository.deleteProject(project)
-    }
-
     fun getTaskParentProjectWithoutLiveDataBullshit(task: Task): Project {
         return repository.getTaskParentProjectWithoutLiveDataBullshit(task)
     }
@@ -69,20 +65,7 @@ class ProjectViewModel
         return repository.getProject(projectId)
     }
 
-    fun getTasksForProject(project: Project, includeArchived: Boolean = false): LiveData<List<Task>> {
-        return repository.getTasksForProject(project, includeArchived)
-    }
-
-    fun getTasksForProject(project: Project): LiveData<List<Task>> {
-        return repository.getTasksForProject(project)
-    }
-
     fun getTasksForProject(projectId: Long): LiveData<List<Task>> {
         return repository.getTasksForProject(projectId)
     }
-
-    fun getTask(taskId: Long): LiveData<Task> {
-        return repository.getTask(taskId)
-    }
-
 }

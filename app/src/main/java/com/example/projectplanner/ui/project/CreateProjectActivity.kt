@@ -1,4 +1,4 @@
-package com.example.projectplanner.ui.grid
+package com.example.projectplanner.ui.project
 
 import android.app.DatePickerDialog
 import android.graphics.Color

@@ -13,11 +13,11 @@ import androidx.lifecycle.Observer
 import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
 import com.example.projectplanner.domain.ProjectViewModel
+import com.example.projectplanner.ui.project.CreateProjectActivity
 import com.github.tlaabs.timetableview.Schedule
 import com.github.tlaabs.timetableview.Time
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import com.example.projectplanner.ui.ProjectTableView
 import com.example.projectplanner.ui.project.TaskActivity
 import com.example.projectplanner.ui.projectDetails.ProjectDetailsActivity
 import kotlinx.android.synthetic.main.app_toolbar.*
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // toolbar initializing
-    fun initializeToolbar() {
+    private fun initializeToolbar() {
         setSupportActionBar(toolbar as Toolbar?)
         monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
