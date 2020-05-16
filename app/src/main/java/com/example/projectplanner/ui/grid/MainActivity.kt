@@ -1,26 +1,27 @@
 package com.example.projectplanner.ui.grid
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import androidx.appcompat.widget.Toolbar
-import android.content.Intent
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import com.example.projectplanner.ProjectPlannerApplication
 import com.example.projectplanner.R
 import com.example.projectplanner.domain.ProjectViewModel
 import com.example.projectplanner.ui.project.CreateProjectActivity
+import com.example.projectplanner.ui.project.TaskActivity
+import com.example.projectplanner.ui.projectDetails.ProjectDetailsActivity
 import com.github.tlaabs.timetableview.Schedule
 import com.github.tlaabs.timetableview.Time
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.toolbar
-import com.example.projectplanner.ui.project.TaskActivity
-import com.example.projectplanner.ui.projectDetails.ProjectDetailsActivity
 import kotlinx.android.synthetic.main.app_toolbar.*
+import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
@@ -52,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(taskIntent)
             }
         })
-
 
         add_task.setOnClickListener { onPlusButtonCLick() }
     }
@@ -98,13 +98,11 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    // toolbar initializing
     private fun initializeToolbar() {
         setSupportActionBar(toolbar as Toolbar?)
+
         monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
 
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -133,6 +131,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        monthSpinner.setSelection(Calendar.getInstance().get(Calendar.MONTH))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

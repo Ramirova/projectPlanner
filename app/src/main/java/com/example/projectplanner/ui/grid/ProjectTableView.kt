@@ -28,10 +28,10 @@ class ProjectTableView : LinearLayout {
     private var startTime = 0
     private var headerHighlightColor = 0
     private var stickerBox: RelativeLayout? = null
-    var tableHeader: TableLayout? = null
-    var tableBox: TableLayout? = null
+    private var tableHeader: TableLayout? = null
+    private var tableBox: TableLayout? = null
     private var kontext: Context
-    var stickers = HashMap<Int, Sticker>()
+    private var stickers = HashMap<Int, Sticker>()
     private var stickerCount = -1
     private var stickerSelectedListener: OnStickerSelectedListener? = null
     private var highlightMode = HighlightMode.COLOR
